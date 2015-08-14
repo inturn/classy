@@ -1,0 +1,121 @@
+@import "typography"
+@import "buttons"
+
+ul
+  padding: 0
+  margin: 0
+
+.cl-hero
+  padding-top: 60px
+  padding-bottom: 48px
+  box-sizing: border-box
+  background: linear-gradient(to bottom, rgba(78,36,133,1) 0%, rgba(133,37,130,1) 100%);
+
+.cl-hero-content
+  text-align: center
+
+#cl-hero-img
+  color: white
+  width: 50%
+  max-width: 420px
+  margin: 70px
+  display: inline-block
+
+.cl-nav
+  list-style-type: none
+  padding: 0 24px
+  width: 100%
+  position: absolute
+  z-index: 200
+  background: transparentify(#4F4858, 0)
+  &.sticky
+    background: #4F4858
+    transition: background 400ms ease
+    position: fixed
+    .cl-nav-item-brand
+      display: inline-block
+  li
+    float: right
+    display: inline-block
+    &:first-child
+      float: left
+
+.cl-nav-item
+  display: inline-block
+  color: #fff
+  padding: 0 12px
+  line-height: 60px
+  &:focus
+    color: #fff
+  &:hover
+    color: #fff
+
+.cl-nav-item-brand
+  @extend .cl-nav-item
+  display: none
+  img
+    height: 30px
+.cl-container
+  width: 100%
+  max-width: 720px
+  margin: auto
+  padding: 0 24px
+  box-sizing: border-box
+
+.cl-npm
+  text-align: center
+
+.cl-npm-box
+  margin: 24px 0
+  padding: 24px
+  background-color: #4F4858
+  display: inline-block
+  color: #fff
+  font-size: 18px
+
+.cl-code-block-tabs
+  list-style-type: none
+  margin-bottom: 8px
+  li
+    display: inline-block
+
+section
+  margin-top: 54px
+
+.cl-code-block-content
+  position: relative
+  box-sizing: border-box
+  background-color: #4F4858
+  padding: 24px
+  display: inline-block
+  .cl-code-block
+    color: #fff
+    height: 0
+    margin: 0
+    opacity: 0
+    &.active
+      height: 100%
+      transition: opacity 400ms ease
+      opacity: 1
+
+.cl-code-block-description
+  position: absolute
+  left: 100%
+  width: 300px
+  margin-left: 24px
+  p
+    margin: 0
+
+.cl-visible
+  display: none
+
+.cl-hidden
+  display: block
+
+@media screen and (max-width: 960px)
+  .cl-code-block-content
+    display: block
+  .cl-visible
+    display: block
+  .cl-hidden
+    display: none
