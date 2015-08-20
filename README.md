@@ -1,4 +1,4 @@
-![Classy logo](./logo.svg)
+![Classy logo](https://raw.githubusercontent.com/inturn/classy/master/logo.svg)
 
 ### Table of Contents
 
