@@ -1,4 +1,4 @@
-![Classy logo](https://raw.githubusercontent.com/inturn/classy/master/logo.svg)
+![Classy logo](https://inturn.github.io/classy/dist/classy-logo-color.svg)
 
 ### Table of Contents
 
