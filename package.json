@@ -1,16 +1,17 @@
 {
   "name": "react-classy",
   "version": "0.1.0",
-  "description": "A familiar, extensible, and simple solution for styling React components.",
+  "description": "A composable, extensible, and simple solution for styling React components.",
   "author": "InTurn <ops@inturn.co> (https://github.com/inturn)",
   "license": "MIT",
   "homepage": "http://inturn.github.io/classy/",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
   "engines": {
     "iojs": "3.1.0",
     "npm": "2.14"
   },
   "scripts": {
+    "postinstall": "npm run -s babel",
     "test": "npm run -s mocha -- --reporter nyan --require mocha-babel test/*.spec.js",
     "babel": "npm run -s rimraf -- lib && babel src --out-dir lib --stage 0",
     "lint": "npm run -s eslint -s -- src && cat winning.txt",

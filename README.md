@@ -1,3 +1,6 @@
+[![Dependency Status](https://david-dm.org/inturn/classy.svg)](https://david-dm.org/inturn/classy)
+[![devDependency Status](https://david-dm.org/inturn/classy/dev-status.svg)](https://david-dm.org/inturn/classy#info=devDependencies)
+
 ![Classy logo](https://inturn.github.io/classy/dist/classy-logo-color.svg)
 
 ### Table of Contents
@@ -15,7 +18,7 @@ Installation
 Getting Started
 ---------------
 
-Classy makes styling React components *familiar*, *extensible*, and *simple*.
+Classy makes styling React components *composable*, *extensible*, and *simple*.
 Implementation requires only 3 steps:
 
 0. Import `react-classy` into your React component module
@@ -70,7 +73,7 @@ css-rendering middleware, we've also got your back:
 import React from 'react';
 // Import Classy decorator and utils modules
 import { Classy, Utils } from './react-classy';
-// TJ's Stylus CSS pre-processor (my favs)
+// Stylus CSS pre-processor
 import stylus from 'stylus';
 
 // Classy's decorator accepts an options object, so let's construct one.
