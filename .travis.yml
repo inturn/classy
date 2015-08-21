@@ -1,0 +1,18 @@
+language: node_js
+
+node_js:
+  - "0.12"
+  - "iojs"
+
+branches:
+  only:
+    - master
+
+notifications:
+  email:
+    on_success: change
+    on_failure: always
+
+script:
+  - npm run -s lint
+  - npm run -s test
