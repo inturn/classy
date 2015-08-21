@@ -1,5 +1,6 @@
 ![Classy logo](https://inturn.github.io/classy/dist/classy-logo-color.svg)
 
+[![npm version](https://badge.fury.io/js/react-classy.svg)](http://badge.fury.io/js/react-classy)
 [![Build Status](https://travis-ci.org/inturn/classy.svg)](https://travis-ci.org/inturn/classy)
 [![Dependency Status](https://david-dm.org/inturn/classy.svg)](https://david-dm.org/inturn/classy)
 [![devDependency Status](https://david-dm.org/inturn/classy/dev-status.svg)](https://david-dm.org/inturn/classy#info=devDependencies)
