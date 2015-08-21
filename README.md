@@ -14,7 +14,7 @@
 Installation
 ------------
 
-#### `npm install react-classy`
+##### `npm install react-classy`
 
 Getting Started
 ---------------
