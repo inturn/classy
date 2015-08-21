@@ -1,0 +1,9 @@
+// OSX
+.DS_Store
+.Trashes
+
+// Node
+node_modules
+
+// Built files
+lib

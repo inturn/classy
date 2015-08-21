@@ -1,0 +1,58 @@
+{
+  "name": "react-classy",
+  "version": "0.1.0",
+  "description": "A familiar, extensible, and simple solution for styling React components.",
+  "author": "InTurn <ops@inturn.co> (https://github.com/inturn)",
+  "license": "MIT",
+  "homepage": "http://inturn.github.io/classy/",
+  "main": "dist/index.js",
+  "engines": {
+    "iojs": "3.1.0",
+    "npm": "2.14"
+  },
+  "scripts": {
+    "test": "npm run -s mocha -- --reporter nyan --require mocha-babel test/*.spec.js",
+    "babel": "npm run -s rimraf -- lib && babel src --out-dir lib --stage 0",
+    "lint": "npm run -s eslint -s -- src && cat winning.txt",
+    "coverage": "npm run -s istanbul -- cover node_modules/.bin/_mocha -- --reporter nyan --require mocha-babel test/*.spec.js",
+    "eslint": "node_modules/.bin/eslint",
+    "istanbul": "node_modules/.bin/istanbul",
+    "mocha": "node_modules/.bin/mocha",
+    "rimraf": "node_modules/.bin/rimraf"
+  },
+  "precommit.silent": true,
+  "pre-commit": [
+    "lint",
+    "test"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/inturn/classy.git"
+  },
+  "keywords": [
+    "React",
+    "CSS",
+    "styling",
+    "ES6",
+    "ES7",
+    "decorators",
+    "classy"
+  ],
+  "bugs": {
+    "url": "https://github.com/inturn/classy/issues"
+  },
+  "dependencies": {
+    "babel": "5.8.21",
+    "rimraf": "2.4.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "4.0.10",
+    "chai": "3.2.0",
+    "eslint": "1.2.1",
+    "istanbul": "0.3.18",
+    "jsdom": "6.1.0",
+    "mocha": "2.2.5",
+    "pre-commit": "1.1.1",
+    "react": "0.13.3"
+  }
+}
