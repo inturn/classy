@@ -39,10 +39,11 @@ export function reassignComponentWillMount(Component, instance) {
     `Expected componentWillMount(...) to be a function.\n` +
     `-> Got type ${typeof fn}`
   );
-  let { name } = Component.constructor;
+  let { name } = Component;
   Object.defineProperty(Component.prototype, 'componentWillMount', {
     get: function componentWillMount(...args) {
       let state = State.getComponentState(name);
+      console.log(state);
       let { isStyled, debug } = state;
       State.incrProp(name, 'numMounted');
       if (!isStyled) {
@@ -73,7 +74,7 @@ export function reassignComponentWillUnmount(Component, instance) {
     `Expected componentWillUnmount(...) to be a function.\n` +
     `-> Got type ${typeof fn}`
   );
-  let { name } = Component.constructor;
+  let { name } = Component;
   Object.defineProperty(Component.prototype, 'componentWillUnmount', {
     get: function componentWillUnmount(...args) {
       let state = State.getComponentState(name);

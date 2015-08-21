@@ -6,13 +6,13 @@
 
 ### Table of Contents
 
-- [Installation](#installation)
+- [Install](#install)
 - [Getting Started](#getting-started)
-- [Examples](#examples)
+- [Usage](#usage)
 - [API](#api)
 
-Installation
-------------
+Install
+-------
 
 ##### `npm install react-classy`
 
@@ -30,14 +30,14 @@ The styles defined on your React component will get automatically injected into
 the DOM right before your component mounts. Check out some examples of basic
 and advanced usage in the next section.
 
-Examples
---------
+Usage
+-----
 
 Let's say have a file called `MyButton.js` in which we plan to create a button
 React component. The following examples illustrate how you might use Classy to
 encapsulate your component's styles as part of an ES7 class definition.
 
-### Basic Usage
+### Basic
 
 Tightly coupling a component with its styles is easily achieved:
 
@@ -65,7 +65,7 @@ export default class MyButton extends React.Component {
 }
 ```
 
-### Advanced Usage
+### Advanced
 
 If you'd like to use custom settings, theme your styles, or use custom
 css-rendering middleware, we've also got your back:
@@ -174,7 +174,7 @@ Type: `Boolean`
 
 Default: `false`
 
-...description...
+[description]
 
 ##### options.styleProp
 
@@ -182,7 +182,7 @@ Type: `String`
 
 Default: `style`
 
-...description...
+[description]
 
 ##### options.themeProp
 
@@ -190,15 +190,17 @@ Type: `String`
 
 Default: `themes`
 
-...description...
+[description]
 
 ##### options.alias
 
 Type: `String`
 
-Default: `<ReactComponent>.name`
+Default: `<ReactComponent>.name_<hash>`
 
-...description...
+Example: `MyButton_fxhhf`
+
+[description]
 
 ##### options.elemId
 
@@ -206,7 +208,7 @@ Type: `String`
 
 Default: `alias`
 
-...description...
+[description]
 
 ##### options.elemProps
 
@@ -214,7 +216,7 @@ Type: `String`
 
 Default: `text/css`
 
-...description...
+[description]
 
 ##### options.appendTo
 
@@ -222,7 +224,7 @@ Type: `String`
 
 Default: `head`
 
-...description...
+[description]
 
 ### Utils
 
@@ -232,13 +234,13 @@ Default: `head`
 
 Type: `String`
 
-...description...
+[description]
 
 ##### theme
 
 Type: `String`
 
-...description...
+[description]
 
 #### Utils.updateStyle(name)
 
@@ -246,7 +248,7 @@ Type: `String`
 
 Type: `String`
 
-...description...
+[description]
 
 #### Utils.removeStyle(name)
 
@@ -254,7 +256,7 @@ Type: `String`
 
 Type: `String`
 
-...description...
+[description]
 
 #### Utils.getComponentState(name)
 
@@ -262,7 +264,7 @@ Type: `String`
 
 Type: `String`
 
-...description...
+[description]
 
 #### Utils.createComponentState(Component [, options])
 
@@ -270,7 +272,7 @@ Type: `String`
 
 Type: `ReactComponent`
 
-...description...
+[description]
 
 ##### options
 

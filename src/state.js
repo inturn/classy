@@ -37,7 +37,7 @@ export function createComponentState(
     styleProp  = 'style',
     themeProp  = 'theme',
     alias      = Component.name,
-    elemId     = alias,
+    elemId     = `${alias}_${+(+new Date * Math.random()).toString(36).substring(0, 5)}`,
     elemProps  = { type: 'text/css' },
     appendTo   = 'head'
   }={}
@@ -65,8 +65,7 @@ export function createComponentState(
       alias,
       elemId,
       elemProps,
-      appendTo,
-      immediate
+      appendTo
     }
   });
   if (debug) console.debug(
