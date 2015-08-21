@@ -18,7 +18,7 @@ Getting Started
 Classy makes styling React components *familiar*, *extensible*, and *simple*.
 Implementation requires only 3 steps:
 
-0. Import the `react-classy` into your React component module
+0. Import `react-classy` into your React component module
 0. Decorate your React component class with `@Classy`.
 0. Assign a CSS string to a static `style` prop on your React component class.
 
@@ -61,11 +61,11 @@ css-rendering middleware, we've also got your back:
 
 ```js
 import React from 'react';
-import { default as Classy, Utils } from './react-classy';
-// TJ's Stylus CSS pre-processor (it's my favs)
+import { Classy, Utils } from './react-classy';
+// TJ's Stylus CSS pre-processor (my favs)
 import stylus from 'stylus';
 
-// Classy's decorator accepts an optional options object.
+// Classy's decorator accepts an options object, so let's construct one.
 const CLASSY_SETTINGS = {
   // Logs rendered css and operation duration
   debug: true,
@@ -77,8 +77,7 @@ const CLASSY_SETTINGS = {
 @Classy(CLASSY_SETTINGS)
 export default class Button extends React.Component {
 
-  // We'll render a button that switches themes
-  // when it is pressed.
+  // We'll render a button that switches themes when it's clicked.
   render() {
     return (
       <button
@@ -90,8 +89,8 @@ export default class Button extends React.Component {
   }
 
   // So let's define our themes as a static prop.
-  // This makes is easy for others to extend your component
-  // and modify theme properties
+  // This makes is easy for others to modify a component's theme(s)
+  // via class extension.
   static themes = {
     light: {
       textColor: 'blue',
@@ -104,9 +103,9 @@ export default class Button extends React.Component {
   }
 
   // Instead of a hard-coding your CSS,
-  // you can assign a method that returns a CSS string.
-  // Using this approach, you can easily transform your styles.
-  // We are also options the default theme via rest param
+  // you can assign a method that returns Promise that fulfills a CSS string.
+  // Using this approach, you can easily transform/preprocess your styles.
+  // We are also options the default theme via rest param.
   static stylus(theme=this.constructor.themes.light) {
     return new Promise((fulfill, reject) =>
       stylus(`
@@ -124,7 +123,7 @@ export default class Button extends React.Component {
   }
 
   // Method that switches the component's theme.
-  // Will toggle from 'light' to 'dark' and vice versa
+  // Will toggle from 'light' to 'dark' and vice versa.
   switchTheme(e) {
     let { name } = this.constructor;
     let theme = Utils.getTheme(name);

@@ -8,4 +8,5 @@
  */
 
 export { Classy as default } from './decorator';
+export { Classy } from './decorator';
 export { Utils } from './utils';
