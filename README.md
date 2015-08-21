@@ -135,14 +135,14 @@ export default class Button extends React.Component {
 }
 ```
 
-[Decorator](#decorator-api) options and [util](#utils-api) methods are comprehensively documented in the next
+[Decorator](#decorator) options and [util](#utils) methods are comprehensively documented in the next
 section.
 
 
 API
 ---
 
-### Decorator API
+### Decorator
 
 #### @Classy([options])
 
@@ -213,7 +213,7 @@ Default: `head`
 
 ...description...
 
-### Utils API
+### Utils
 
 #### Utils.setTheme(name [, theme])
 
