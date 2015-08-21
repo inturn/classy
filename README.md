@@ -41,8 +41,10 @@ Tightly coupling a component with its styles is easily achieved:
 // MyButton.js
 
 import React from 'react';
+// Import Classy
 import Classy from 'react-classy';
 
+// Decorate your component
 @Classy
 export default class MyButton extends React.Component {
   render() {
@@ -50,6 +52,7 @@ export default class MyButton extends React.Component {
       <button className="my-button">Push Me!</button>;
     );
   }
+  // Assign some stringified CSS to a static `style` prop
   static style = `
     .my-button {
       color: white;
