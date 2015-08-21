@@ -30,7 +30,7 @@ Examples
 --------
 
 Let's say have a file called `MyButton.js` in which we plan to create a button
-ReactComponent. The following examples illustrate how you might use Classy to
+React component. The following examples illustrate how you might use Classy to
 encapsulate your component's styles as part of an ES7 class definition.
 
 ### Basic Usage
