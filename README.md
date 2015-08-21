@@ -29,11 +29,17 @@ and advanced usage in the next section.
 Examples
 --------
 
+Let's say have a file called `MyButton.js` in which we plan to create a button
+ReactComponent. The following examples illustrate how you might use Classy to
+encapsulate your component's styles as part of an ES7 class definition.
+
 ### Basic Usage
 
 Tightly coupling a component with its styles is easily achieved:
 
 ```js
+// MyButton.js
+
 import React from 'react';
 import Classy from 'react-classy';
 
@@ -60,6 +66,8 @@ If you'd like to use custom settings, theme your styles, or use custom
 css-rendering middleware, we've also got your back:
 
 ```js
+// MyButton.js
+
 import React from 'react';
 import { Classy, Utils } from './react-classy';
 // TJ's Stylus CSS pre-processor (my favs)
