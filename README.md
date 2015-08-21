@@ -16,7 +16,7 @@ Getting Started
 ---------------
 
 Classy makes styling React components *familiar*, *extensible*, and *simple*.
-By simple, I mean 3 steps:
+Implementation requires only 3 steps:
 
 0. Import the `react-classy` into your React component module
 0. Decorate your React component class with `@Classy`.
@@ -108,20 +108,19 @@ export default class Button extends React.Component {
   // Using this approach, you can easily transform your styles.
   // We are also options the default theme via rest param
   static stylus(theme=this.constructor.themes.light) {
-    let cssText;
-    let style = `
-      .my-button
-        color: $theme.textColor
-        background: $theme.background
-    `;
-    stylus(style)
-      .set('imports', [])
-      .define('$theme', theme, true)
-      .render((err, output) => {
-        if (err) throw err;
-        cssText = output;
-      });
-    return cssText;
+    return new Promise((fulfill, reject) =>
+      stylus(`
+        .my-button
+          color: convert($theme.textColor)
+          background: convert($theme.background)
+      `)
+        .set('imports', [])
+        .define('$theme', theme, true)
+        .render((err, css) => {
+          if (err) return reject(err);
+          fulfill(css);
+        })
+    );
   }
 
   // Method that switches the component's theme.
@@ -190,11 +189,19 @@ Default: `<ReactComponent>.name`
 
 ...description...
 
-##### options.styleId
+##### options.elemId
 
 Type: `String`
 
 Default: `alias`
+
+...description...
+
+##### options.elemProps
+
+Type: `String`
+
+Default: `text/css`
 
 ...description...
 
@@ -203,14 +210,6 @@ Default: `alias`
 Type: `String`
 
 Default: `head`
-
-...description...
-
-##### options.mediaType
-
-Type: `String`
-
-Default: `text/css`
 
 ...description...
 
