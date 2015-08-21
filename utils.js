@@ -20,29 +20,6 @@ export default const Utils = {
 
   /**
    *
-   * Manually initalize your component with Classy
-   *
-   * @param  {[type]} ...args [description]
-   * @return {[type]}         [description]
-   */
-  createComponentState(...args) {
-    return State.createComponentState(...args);
-  },
-
-  /**
-   *
-   * Curries getComponentState(...)
-   *
-   * @desc   Curries State.getComponentState(...)
-   * @param  {[type]} name [description]
-   * @return {[type]}      [description]
-   */
-  getComponentState(name) {
-    return State.getComponentState(name);
-  },
-
-  /**
-   *
    * [setTheme description]
    *
    * @param  {[type]} name         [description]
@@ -83,6 +60,29 @@ export default const Utils = {
    */
   async removeStyle(...args) {
     return await DOM.removeStyle(...args);
+  },
+
+  /**
+   *
+   * Curries getComponentState(...)
+   *
+   * @desc   Curries State.getComponentState(...)
+   * @param  {[type]} name [description]
+   * @return {[type]}      [description]
+   */
+  getComponentState(name) {
+    return State.getComponentState(name);
+  },
+
+  /**
+   *
+   * Manually initalize your component with Classy
+   *
+   * @param  {[type]} ...args [description]
+   * @return {[type]}         [description]
+   */
+  createComponentState(...args) {
+    return State.createComponentState(...args);
   }
 
 };

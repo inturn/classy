@@ -215,7 +215,7 @@ Default: `head`
 
 ### Utils API
 
-#### Utils.setTheme.(name [, theme])
+#### Utils.setTheme(name [, theme])
 
 ##### name
 
@@ -229,7 +229,7 @@ Type: `String`
 
 ...description...
 
-#### Utils.getComponentState.(name)
+#### Utils.updateStyle(name)
 
 ##### name
 
@@ -237,7 +237,7 @@ Type: `String`
 
 ...description...
 
-#### Utils.appendStyle.(name)
+#### Utils.removeStyle(name)
 
 ##### name
 
@@ -245,10 +245,24 @@ Type: `String`
 
 ...description...
 
-#### Utils.removeStyle.(name)
+#### Utils.getComponentState(name)
 
 ##### name
 
 Type: `String`
 
 ...description...
+
+#### Utils.createComponentState(Component [, options])
+
+##### Component
+
+Type: `ReactComponent`
+
+...description...
+
+##### options
+
+Type: `Object`
+
+Same options as the [@Classy decorator options](#options)
