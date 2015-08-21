@@ -113,7 +113,7 @@ export default class Button extends React.Component {
   // Instead of a hard-coding your CSS,
   // you can assign a method that returns Promise that fulfills a CSS string.
   // Using this approach, you can easily transform/preprocess your styles.
-  // We are also options the default theme via rest param.
+  // We can also set the default theme via rest param.
   static stylus(theme=this.constructor.themes.light) {
     return new Promise((fulfill, reject) =>
       stylus(`
