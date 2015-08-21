@@ -38,8 +38,6 @@ encapsulate your component's styles as part of an ES7 class definition.
 Tightly coupling a component with its styles is easily achieved:
 
 ```js
-// MyButton.js
-
 import React from 'react';
 // Import Classy
 import Classy from 'react-classy';
@@ -69,9 +67,8 @@ If you'd like to use custom settings, theme your styles, or use custom
 css-rendering middleware, we've also got your back:
 
 ```js
-// MyButton.js
-
 import React from 'react';
+// Import Classy decorator and utils modules
 import { Classy, Utils } from './react-classy';
 // TJ's Stylus CSS pre-processor (my favs)
 import stylus from 'stylus';
