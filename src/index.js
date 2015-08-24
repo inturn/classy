@@ -72,8 +72,8 @@ const APP = (
       </p>
     </ContentSection>
 
-    <ContentSection name="Rational">
-      <h2>Rational</h2>
+    <ContentSection name="Rationale">
+      <h2>Rationale</h2>
       <p>Classy was created with the following principles in mind:</p>
       <ul>
         <li>Composability (es7)</li>
