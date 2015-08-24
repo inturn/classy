@@ -1,16 +1,20 @@
 {
-  "name": "classy",
+  "name": "classy-website",
   "version": "1.0.0",
-  "description": "",
   "main": "gulpfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
-  "author": "",
   "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^5.8.22",
+    "babel-loader": "^5.3.2",
+    "react-hot-loader": "^1.2.9",
+    "webpack": "^1.11.0",
+    "webpack-dev-server": "^1.10.1"
+  },
   "dependencies": {
-    "browser-sync": "^2.8.2",
-    "gulp": "^3.9.0",
-    "gulp-stylus": "^2.0.6"
+    "react": "^0.13.0",
+    "react-classy": "file:/Sites/classy"
   }
 }
