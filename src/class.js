@@ -106,8 +106,8 @@ export async function getComponentCSS(name) {
   if (typeof style === 'string') {
     returnValue = style;
   }
-  // Style is a Promise
-  else if (style instanceof Promise) {
+  // Style returns a Promise
+  else if (typeof style === 'function') {
     returnValue = await style(theme);
   }
   // Style is...something else
