@@ -2,7 +2,7 @@
  *
  * Classy - Class Helpers
  *
- * @module lib/Class
+ * @module lib/class
  * @description
  *   Helpers for modifying and getting values from Classy ReactComponents
  */
@@ -41,18 +41,14 @@ export function reassignComponentWillMount(Component, instance) {
   );
   let { name } = Component;
   Object.defineProperty(Component.prototype, 'componentWillMount', {
-    get: function componentWillMount(...args) {
+    writable: true,
+    value: function componentWillMount(...args) {
       let state = State.getComponentState(name);
-      console.log(state);
-      let { isStyled, debug } = state;
+      let { isStyled, debug, settings } = state;
+      let { dev } = settings;
       State.incrProp(name, 'numMounted');
-      if (!isStyled) {
-        DOM.updateStyle(name)
-          .then(cssText => debug && console.debug(
-            // Log style was removed
-            cssText
-          ))
-          .catch(console.error.bind(console));
+      if (dev || !isStyled) {
+        DOM.updateStyle(name).catch(console.error.bind(console));
       }
       if (fn) fn.call(instance, ...args);
     }
@@ -76,17 +72,14 @@ export function reassignComponentWillUnmount(Component, instance) {
   );
   let { name } = Component;
   Object.defineProperty(Component.prototype, 'componentWillUnmount', {
-    get: function componentWillUnmount(...args) {
+    writable: true,
+    value: function componentWillUnmount(...args) {
       let state = State.getComponentState(name);
-      let { isStyled, debug } = state;
+      let { isStyled, debug, settings } = state;
+      let { dev } = settings;
       State.decrProp(name, 'numMounted');
-      if (isStyled) {
-        DOM.removeStyle(name)
-          .then(() => debug && console.debug(
-            // Log style was removed
-            // ...
-          ))
-          .catch(console.error.bind(console));
+      if (dev || isStyled) {
+        DOM.removeStyle(name).catch(console.error.bind(console));
       }
       if (fn) fn.call(instance, ...args);
     }

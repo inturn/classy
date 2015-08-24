@@ -2,13 +2,14 @@
  *
  * Classy - Decorator
  *
- * @module decorator
+ * @module lib/decorator
  * @description
  *   Reassigns component lifecycle methods and creates a state object
  */
 
 import * as State from './state';
 import * as Class from './class';
+import * as DOM from './dom';
 
 /**
  *
@@ -29,7 +30,11 @@ export default function Classy(Component, settings) {
     Component === Component.prototype.constructor
   ) {
     Class.reassignLifecycleMethods(Component, this);
-    State.createComponentState(Component, settings);
+    let state = State.createComponentState(Component, settings);
+    let { dev, alias} = state.settings;
+    if (dev && State.getComponentState(alias)) {
+      DOM.updateStyle(alias);
+    }
   }
   // Component is...something else
   else throw new TypeError(

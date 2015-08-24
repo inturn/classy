@@ -21,7 +21,7 @@ import * as Class from './class';
 export async function updateStyle(name) {
   let state = State.getComponentState(name);
   let { settings } = state;
-  let { appendTo, elemId, elemProps } = settings;
+  let { appendTo, elemId, elemProps, debug } = settings;
   let parent = document.querySelector(appendTo);
   // Can't find parent node
   if (!parent) throw new ReferenceError(
@@ -45,6 +45,11 @@ export async function updateStyle(name) {
     isStyled: true,
     cssText
   });
+  if (debug) console.debug(
+    'Classy Debug: updateStyle(...)\n',
+    name,
+    cssText
+  );
   return cssText;
 }
 
@@ -71,4 +76,8 @@ export async function removeStyle(name) {
     isStyled: false,
     cssText: undefined
   });
+  if (debug) console.debug(
+    'Classy Debug: removeStyle(...)\n',
+    name
+  );
 }

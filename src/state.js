@@ -2,14 +2,16 @@
  *
  * Classy - State Helpers
  *
- * @module lib/State
+ * @module lib/state
  * @description
- *   Helpers for gettings/setting Classy component state object props
+ *   Helpers for interfacing with Classy's state object
  */
+
+import * as Misc from './misc';
 
 /**
  *
- * Tracks the states of all classyDecorate'd components
+ * Tracks the states of all Classy-decorated components
  *
  */
 const STATE = {};
@@ -23,21 +25,23 @@ const STATE = {};
  * @param  {Boolean}        [debug=false]          [description]
  * @param  {String}         [styleProp=style]      [description]
  * @param  {String}         [themeProp=theme]      [description]
- * @param  {String}         [alias=Component.name] [description]
+ * @param  {String}         [alias=${alias}_${Misc.genHash()}]
+ *                                                 [description]
  * @param  {String}         [elemId=alias]         [description]
  * @param  {String}         [appendTo=head]        [description]
  * @param  {Object}         [elemProps ={ type: 'text/css' }]
- *                                        				 [description]
+ *                                                 [description]
  * @return {Object}                                Component state object
  */
 export function createComponentState(
   Component,
   {
     debug      = false,
+    dev        = false,
     styleProp  = 'style',
     themeProp  = 'theme',
     alias      = Component.name,
-    elemId     = `${alias}_${+(+new Date * Math.random()).toString(36).substring(0, 5)}`,
+    elemId     = `${alias}_${Misc.genHash()}`,
     elemProps  = { type: 'text/css' },
     appendTo   = 'head'
   }={}
@@ -47,31 +51,38 @@ export function createComponentState(
     'Classy Error: createComponentState(...)\n' +
     `Component must have a 'name' or component's settings must have an 'alias'.`
   );
-  if (getComponentState(name)) return console.warn(
-    'Classy Warning: createComponentState(...)\n' +
-    `State has already been created for component ${name}.`
-  );
+  let state = getComponentState(name);
+  // Already has state
+  if (state && !dev) {
+    console.warn(
+      'Classy Warning: createComponentState(...)\n' +
+      `State has already been created for component ${name}.`
+    );
+  }
   // Construct initial state
-  setComponentState(name, {
-    Component,
-    numMounted: 0,
-    isStyled: false,
-    currentTheme: undefined,
-    cssText: undefined,
-    settings: {
-      debug,
-      styleProp,
-      themeProp,
-      alias,
-      elemId,
-      elemProps,
-      appendTo
-    }
-  });
-  if (debug) console.debug(
-    'Classy Debug: createComponentState(...)\n',
-    getComponentState(name)
-  );
+  else {
+    setComponentState(name, {
+      Component,
+      numMounted: 0,
+      isStyled: false,
+      currentTheme: undefined,
+      cssText: undefined,
+      settings: {
+        debug,
+        dev,
+        styleProp,
+        themeProp,
+        alias,
+        elemId,
+        elemProps,
+        appendTo
+      }
+    });
+    if (debug) console.debug(
+      'Classy Debug: createComponentState(...)\n',
+      getComponentState(name)
+    );
+  }
   return getComponentState(name);
 }
 
