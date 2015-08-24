@@ -71,7 +71,7 @@ export default class Button extends React.Component {
   // you can assign a method that returns Promise that fulfills a CSS string.
   // Using this approach, you can easily transform/preprocess your styles.
   // We can also set the default theme via rest param.
-  static stylus(theme=this.constructor.themes.light) {
+  static stylus(theme=MyButton.themes.light) {
     return new Promise((fulfill, reject) =>
       stylus(\`
         .my-button
@@ -90,7 +90,7 @@ export default class Button extends React.Component {
   // Method that switches the component's theme.
   // Will toggle from 'light' to 'dark' and vice versa.
   switchTheme(e) {
-    let { name } = this.constructor;
+    let { name } = MyButton;
     let theme = Utils.getTheme(name);
     theme = 'light' === theme ? 'dark' : 'light';
     Utils.setTheme(name, theme);
