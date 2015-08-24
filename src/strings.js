@@ -40,7 +40,7 @@ const CLASSY_SETTINGS = {
 
 // Pass the options to the decorator
 @Classy(CLASSY_SETTINGS)
-export default class Button extends React.Component {
+export default class MyButton extends React.Component {
 
   // We'll render a button that switches themes when it's clicked.
   render() {
