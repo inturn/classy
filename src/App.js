@@ -3,7 +3,7 @@
 import React from 'react';
 import Classy from 'react-classy';
 
-@Classy({ dev: true, debug: true })
+@Classy({ dev: true })
 export default class App extends React.Component {
   render() {
     return (
@@ -15,7 +15,22 @@ export default class App extends React.Component {
      border-box
    }
    body, html {
-     margin: 0
+     margin: 0;
+     font-family: 'Fira Sans', 'Helvetica Neue', helvetica, sans-serif;
+     color: #6d707c;
+   }
+   a {
+     color: #ed6748;
+     border-bottom: 1px dotted #ed6748;
+     text-decoration: none;
+   }
+   a:hover {
+     border-bottom: 1px solid #ed6748;
+   }
+   code {
+     background-color: cornsilk;
+     padding: 0 4px;
+     font-size: 14px;
    }
   `
 }
