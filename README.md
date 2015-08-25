@@ -40,8 +40,6 @@ encapsulate your component's styles as part of an ES7 class definition.
 
 ### Basic
 
-Tightly coupling a component with its styles is easily achieved:
-
 ```js
 import React from 'react';
 // Import Classy
@@ -50,47 +48,48 @@ import Classy from 'react-classy';
 // Decorate your component
 @Classy
 export default class MyButton extends React.Component {
+
   render() {
     return (
       <button className="my-button">Push Me!</button>;
     );
   }
-  // Assign some stringified CSS to a static `style` prop
-  static style = `
+
+  // Assign some stringified CSS to a static \`style\` prop
+  static style = \`
     .my-button {
       color: white;
       background: blue;
       border-radius: 0;
     }
-  `
+  \`
+
 }
 ```
 
 ### Advanced
 
-If you'd like to use custom settings, theme your styles, or use custom
-css-rendering middleware, we've also got your back:
+Classy is also highly customizable and supports asynchronous style
+rendering, custom middleware, and theming! In the next example, we'll
+demonstrate all of the aforementioned while creating a button that
+switches themes when clicked.
 
 ```js
 import React from 'react';
-// Import Classy decorator and utils modules
+// Import the decorator and utils modules
 import { Classy, Utils } from './react-classy';
-// Stylus CSS pre-processor
+// CSS pre-processor
 import stylus from 'stylus';
 
-// Classy's decorator accepts an options object, so let's construct one.
-const CLASSY_SETTINGS = {
-  // Logs rendered css and operation duration
+// We can pass an optional settings object
+@Classy({
+  // Logs component css
   debug: true,
-  // Will render CSS from `stylus` prop instead of `style`
+  // Will render CSS from \`stylus\` prop instead of \`style\`
   styleProp: 'stylus'
-};
+})
+export default class MyButton extends React.Component {
 
-// Pass the options to the decorator
-@Classy(CLASSY_SETTINGS)
-export default class Button extends React.Component {
-
-  // We'll render a button that switches themes when it's clicked.
   render() {
     return (
       <button
@@ -121,11 +120,11 @@ export default class Button extends React.Component {
   // We can also set the default theme via rest param.
   static stylus(theme=MyButton.themes.light) {
     return new Promise((fulfill, reject) =>
-      stylus(`
+      stylus(\`
         .my-button
           color: convert($theme.textColor)
           background: convert($theme.background)
-      `)
+      \`)
         .set('imports', [])
         .define('$theme', theme, true)
         .render((err, css) => {
