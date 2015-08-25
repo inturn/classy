@@ -7,7 +7,10 @@
  * @return {String}         Prefixed CSS style declaration
  */
 export function vendorize(css, vendors=['-webkit-', '-moz-']) {
-  let pre = '@' === css.trim().split(/[ ,]+/)[0] ? '@' : '';
+  let atRule = '@' === css.trim().split(/[ ,]+/)[0][0];
+  let pre = atRule ? '@' : '';
   vendors.push('');
-  return vendors.map(v => pre + v + css.trim()).join('\n')+'\n';
+  css = css.trim();
+  if (atRule) css = css.substr(1);
+  return vendors.map(v => pre + v + css).join('\n')+'\n';
 }
