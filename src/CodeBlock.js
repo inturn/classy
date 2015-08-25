@@ -8,11 +8,6 @@ import Highlight from 'react-highlight';
 @Classy({ dev: true })
 export default class CodeBlock extends React.Component {
   render() {
-    // return (
-    //   <pre {...this.preProps}>
-    //   {this.props.code}
-    //   </pre>
-    // );
     return (
       <div {...this.preProps}>
         <Highlight className={this.props.lang}>

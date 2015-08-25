@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Classy from 'react-classy';
+import { vendorize } from './utils';
 
 @Classy({ dev: true })
 export default class Navbar extends React.Component {
@@ -29,7 +30,7 @@ export default class Navbar extends React.Component {
      color: #fff;
      text-align: center;
      background-color: #4f4858;
-     background-image: linear-gradient(230deg,#a24bcf,#4b79cf,#4bc5cf);
+     background-image: linear-gradient(230deg, #a24bcf, #4b79cf, #4bc5cf);
    }
    .classy-navbar-links {
      display: block;
@@ -44,7 +45,7 @@ export default class Navbar extends React.Component {
      margin: 0 10px;
    }
    .classy-navbar-links li a {
-     ${['-webkit-', '-moz-', ''].map(v => v+'transition: opacity .3s linear;').join('\n')}
+     ${vendorize('transition: opacity .3s linear;')}
      color: #fff;
      text-transform: lowercase;
      text-decoration: none;

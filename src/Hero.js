@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Classy from 'react-classy';
+import { vendorize } from './utils';
 
 @Classy({ dev: true })
 export default class Hero extends React.Component {
@@ -67,7 +68,7 @@ export default class Hero extends React.Component {
      margin: 0 10px;
    }
    .classy-hero-links li a {
-     ${['-webkit-', '-moz-', ''].map(v => v+'transition: * .3s linear;').join('\n')}
+     ${vendorize('transition: * .3s linear;')}
      color: #fff;
      text-transform: lowercase;
      text-decoration: none;
@@ -85,31 +86,27 @@ export default class Hero extends React.Component {
      margin: 70px;
      display: inline-block;
      opacity: 0;
-     ${['-webkit-', '-moz-', ''].map(v => v+'transform: translateY(100px);').join('\n')}
-     ${['-webkit-', '-moz-', ''].map(v => v+'animation: fade-in .5s cubic-bezier(.3,.2,.4,1.2) .3s forwards;').join('\n')}
+     ${vendorize('transform: translateY(100px);')}
+     ${vendorize('animation: fade-in .5s cubic-bezier(.3,.2,.4,1.2) .3s forwards;')}
    }
-   ${
-['-webkit-', '-moz-', ''].map((v) => (
-`@${v}keyframes fade-in {
-  50% {
-    opacity: .2
-  }
-  100% {
-    opacity: 1;
-    ${['-webkit-', '-moz-', ''].map(v => v+'transform: translateY(0);').join('\n')}
-  }
-}`
-)).join('\n')
-   }
+   ${vendorize(`
+    @keyframes fade-in {
+      50% {
+        opacity: .2
+      }
+      100% {
+        opacity: 1;
+        ${vendorize('transform: translateY(0);')}
+      }
+    }
+   `)}
 
-   ${
-['-webkit-', '-moz-', ''].map((v) => (
-`@${v}keyframes background {
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
-}`
-)).join('\n')
-   }
+   ${vendorize(`
+    @keyframes background {
+      0% { background-position:0% 50% }
+      50% { background-position:100% 50% }
+      100% { background-position:0% 50% }
+    }
+  `)}
   `
 }
