@@ -67,7 +67,7 @@ export default class Hero extends React.Component {
      margin: 0 10px;
    }
    .classy-hero-links li a {
-     ${['-webkit-', '-moz-', ''].map(v => v+'transition: opacity .3s linear;').join('\n')}
+     ${['-webkit-', '-moz-', ''].map(v => v+'transition: * .3s linear;').join('\n')}
      color: #fff;
      text-transform: lowercase;
      text-decoration: none;
@@ -85,8 +85,8 @@ export default class Hero extends React.Component {
      margin: 70px;
      display: inline-block;
      opacity: 0;
-     transform: translateY(100px);
-     animation: fade-in .5s cubic-bezier(.3,.2,.4,1.2) .3s forwards
+     ${['-webkit-', '-moz-', ''].map(v => v+'transform: translateY(100px);').join('\n')}
+     ${['-webkit-', '-moz-', ''].map(v => v+'animation: fade-in .5s cubic-bezier(.3,.2,.4,1.2) .3s forwards;').join('\n')}
    }
    ${
 ['-webkit-', '-moz-', ''].map((v) => (
@@ -96,7 +96,7 @@ export default class Hero extends React.Component {
   }
   100% {
     opacity: 1;
-    transform: translateY(0)
+    ${['-webkit-', '-moz-', ''].map(v => v+'transform: translateY(0);').join('\n')}
   }
 }`
 )).join('\n')
