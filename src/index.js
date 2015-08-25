@@ -15,8 +15,8 @@ const APP = (
     <Navbar />
     <ContentSection name="Install">
       <CodeBlock
+        lang="bash"
         code={INSTALL}
-        width={300}
         large
         center
         style={{ textAlign: 'center' }}

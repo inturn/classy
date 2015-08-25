@@ -8,11 +8,13 @@ import Classy from 'react-classy';
 // Decorate your component
 @Classy
 export default class MyButton extends React.Component {
+
   render() {
     return (
       <button className="my-button">Push Me!</button>;
     );
   }
+
   // Assign some stringified CSS to a static \`style\` prop
   static style = \`
     .my-button {
@@ -21,28 +23,24 @@ export default class MyButton extends React.Component {
       border-radius: 0;
     }
   \`
-}
-`
+
+}`;
 const ADVANCED_EXAMPLE =
 `import React from 'react';
-// Import Classy decorator and utils modules
+// Import the decorator and utils modules
 import { Classy, Utils } from './react-classy';
-// Stylus CSS pre-processor
+// CSS pre-processor
 import stylus from 'stylus';
 
-// Classy's decorator accepts an options object, so let's construct one.
-const CLASSY_SETTINGS = {
-  // Logs rendered css and operation duration
+// We can pass an optional settings object
+@Classy({
+  // Logs component css
   debug: true,
   // Will render CSS from \`stylus\` prop instead of \`style\`
   styleProp: 'stylus'
-};
-
-// Pass the options to the decorator
-@Classy(CLASSY_SETTINGS)
+})
 export default class MyButton extends React.Component {
 
-  // We'll render a button that switches themes when it's clicked.
   render() {
     return (
       <button
@@ -96,8 +94,7 @@ export default class MyButton extends React.Component {
     Utils.setTheme(name, theme);
   }
 
-}
-`
+}`;
 export {
   INSTALL,
   LIPSUM,

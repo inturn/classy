@@ -3,14 +3,22 @@
 import React from 'react';
 import Classy from 'react-classy';
 import cx from 'classnames';
+import Highlight from 'react-highlight';
 
 @Classy({ dev: true })
 export default class CodeBlock extends React.Component {
   render() {
+    // return (
+    //   <pre {...this.preProps}>
+    //   {this.props.code}
+    //   </pre>
+    // );
     return (
-      <pre {...this.preProps}>
-      {this.props.code}
-      </pre>
+      <div {...this.preProps}>
+        <Highlight className={this.props.lang}>
+          {this.props.code}
+        </Highlight>
+      </div>
     );
   }
   set preProps(x) {}
@@ -35,11 +43,11 @@ export default class CodeBlock extends React.Component {
       display: block;
       margin: 0;
       padding: 20px;
-      background: #4f4858;
+      background: #0f4858;
       color: #fff;
       font-size: 13px
     }
-    .classy-code-block--large {
+    .classy-code-block--large pre code {
       font-size: 18px;
     }
     .classy-code-block--center {
@@ -47,6 +55,7 @@ export default class CodeBlock extends React.Component {
     }
   `
   static defaultProps = {
-    width: '100%'
+    width: '100%',
+    lang: 'javascript'
   }
 }

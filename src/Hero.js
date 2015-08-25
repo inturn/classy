@@ -44,7 +44,7 @@ export default class Hero extends React.Component {
   }
   static style=`
    .classy-hero {
-     animation: background 30s ease infinite;
+     animation: background 12s ease infinite;
      position: relative;
      text-align: center;
      padding-top: 60px;
