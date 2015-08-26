@@ -34,8 +34,19 @@ const Utils = {
     if (!force && isStyled && theme === currentTheme) {
       return cssText;
     }
-    State.mergeComponentState(name, { currentTheme });
+    State.mergeComponentState(name, { currentTheme: theme });
     return await DOM.updateStyle(name);
+  },
+
+  /**
+   *
+   * Convenience method for getComponentState(...).currentTheme
+   *
+   * @param  {[type]} name [description]
+   * @return {[type]}      [description]
+   */
+  getTheme(name) {
+    return State.getComponentState(name).currentTheme;
   },
 
   /**

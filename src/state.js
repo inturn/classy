@@ -80,6 +80,7 @@ export function createComponentState(
     });
     if (debug) console.debug(
       'Classy Debug: createComponentState(...)\n',
+      name+'\n',
       getComponentState(name)
     );
   }
@@ -128,7 +129,7 @@ export function setComponentState(name, state) {
 export function mergeComponentState(name, state) {
   STATE[name] = {
     ...STATE[name],
-    state
+    ...state
   };
 }
 

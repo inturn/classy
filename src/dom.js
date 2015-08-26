@@ -47,7 +47,7 @@ export async function updateStyle(name) {
   });
   if (debug) console.debug(
     'Classy Debug: updateStyle(...)\n',
-    name,
+    name+'\n',
     cssText
   );
   return cssText;
