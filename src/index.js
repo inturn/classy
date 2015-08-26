@@ -6,6 +6,9 @@ import Hero from './Hero';
 import Navbar from './Navbar';
 import ContentSection from './ContentSection';
 import CodeBlock from './CodeBlock';
+import CodeDemo from './CodeDemo';
+import MyButton from './examples/MyButton';
+import ToggleButton from './examples/ToggleButton';
 import { INSTALL, LIPSUM, BASIC_EXAMPLE, ADVANCED_EXAMPLE } from './strings';
 
 const APP = (
@@ -49,6 +52,9 @@ const APP = (
         use Classy to encapsulate your component's styles inside of an ES7
         class definition.
       </p>
+      <CodeDemo height="300px">
+        <MyButton />
+      </CodeDemo>
       <CodeBlock code={BASIC_EXAMPLE} />
     </ContentSection>
 
@@ -60,6 +66,9 @@ const APP = (
         demonstrate all of the aforementioned while creating a button that
         switches themes when clicked.
       </p>
+      <CodeDemo height="300px">
+        <ToggleButton />
+      </CodeDemo>
       <CodeBlock code={ADVANCED_EXAMPLE} />
     </ContentSection>
 

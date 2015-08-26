@@ -36,6 +36,8 @@ export default class CodeBlock extends React.Component {
     .classy-code-block {
       box-sizing: border-box;
       display: block;
+      max-height: 800px;
+      overflow: auto;
       margin: 0;
       padding: 20px;
       background: #0f4858;

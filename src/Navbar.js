@@ -31,6 +31,7 @@ export default class Navbar extends React.Component {
      text-align: center;
      background-color: #4f4858;
      background-image: linear-gradient(230deg, #a24bcf, #4b79cf, #4bc5cf);
+     z-index: 1;
    }
    .classy-navbar-links {
      display: block;
