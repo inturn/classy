@@ -15,7 +15,7 @@
     <img alt="devdependency status" src="https://david-dm.org/inturn/classy/dev-status.svg" />
   </a>
 </p>
-
+<br />
 ### Table of Contents
 
 - [Install](#install)
