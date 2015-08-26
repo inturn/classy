@@ -54,30 +54,46 @@ encapsulate your component's styles as part of an ES7 class definition.
 ### Basic
 
 ```js
-import React from 'react';
+import React, { Component } from 'react';
 // Import Classy
 import Classy from 'react-classy';
 
 // Decorate your component
 @Classy
-export default class MyButton extends React.Component {
+export default class MyButton extends Component {
 
   render() {
-    return (
-      <button className="my-button">Push Me!</button>;
-    );
+    return <button {...this.props} />;
   }
 
-  // Assign some stringified CSS to a static \`style\` prop
+  static defaultProps = {
+    className: 'my-button my-button--default',
+    children: 'Push Me'
+  }
+
+  // Assign some stringified CSS to a static `style` prop
   static style = \`
-    .my-button {
+    .my-button--default {
       color: white;
-      background: blue;
-      border-radius: 0;
+      background: #4b79cf;
+      border-radius: 4px;
+      border: 0;
+      outline: none;
+      padding: 20px;
+      font-size: 18px;
+      font-family: 'Helvetica Neue', helvetica, sans-serif;
+      transition: transform .3s ease;
+    }
+    .my-button--default:hover {
+      cursor: pointer;
+    }
+    .my-button--default:focus {
+      transform: translateY(4px);
     }
   \`
 
 }
+
 ```
 
 ### Advanced
@@ -88,72 +104,83 @@ demonstrate all of the aforementioned while creating a button that
 switches themes when clicked.
 
 ```js
-import React from 'react';
+import React, { Component } from 'react';
 // Import the decorator and utils modules
-import { Classy, Utils } from './react-classy';
+import { Classy, Utils } from 'react-classy';
 // CSS pre-processor
 import stylus from 'stylus';
 
 // We can pass an optional settings object
 @Classy({
-  // Logs component css
+  // Logs component css to console
   debug: true,
-  // Will render CSS from \`stylus\` prop instead of \`style\`
+  // Will get style value from specified prop
+  // instead of default \`style\` prop
   styleProp: 'stylus'
 })
-export default class MyButton extends React.Component {
+export default class ToggleButton extends Component {
 
   render() {
-    return (
-      <button
-        className="my-button"
-        onClick={e => this.switchTheme(e)}>
-        Touch Me!
-      </button>
-    );
+    return <button {...this.props} />;
   }
 
-  // So let's define our themes as a static prop.
+  static defaultProps = {
+    className: 'toggle-button toggle-button--default',
+    children: 'Touch Me!',
+
+    // Method that switches the component's theme.
+    // Will toggle from 'light' to 'dark' and vice versa.
+    onClick: function switchTheme(e) {
+      let { name } = ToggleButton;
+      let theme = Utils.getTheme(name);
+      theme = 'dark' === theme ? 'light' : 'dark';
+      Utils.setTheme(name, theme);
+    }
+
+  }
+
+  // Let's define our themes as a static.
   // This makes is easy for others to modify a component's theme(s)
   // via class extension.
-  static themes = {
+  static theme = {
     light: {
-      textColor: 'blue',
-      background: 'white'
+      textColor: '#a24bcf',
+      background: 'transparent',
+      borderRadius: '30px'
     },
     dark: {
-      textColor: 'white',
-      background: 'blue'
+      textColor: '#fff',
+      background: '#4b79cf',
+      borderRadius: '4px'
     }
   }
 
   // Instead of a hard-coding your CSS,
   // you can assign a method that returns Promise that fulfills a CSS string.
-  // Using this approach, you can easily transform/preprocess your styles.
-  // We can also set the default theme via rest param.
-  static stylus(theme=MyButton.themes.light) {
-    return new Promise((fulfill, reject) =>
-      stylus(\`
-        .my-button
-          color: convert($theme.textColor)
-          background: convert($theme.background)
-      \`)
-        .set('imports', [])
-        .define('$theme', theme, true)
-        .render((err, css) => {
-          if (err) return reject(err);
-          fulfill(css);
-        })
+  // Our default theme is set via rest param.
+  static stylus(theme=ToggleButton.theme.light) {
+    let styl = \`
+    .toggle-button--default
+      color: convert($theme.textColor)
+      background: convert($theme.background)
+      border: 1px solid convert($theme.textColor)
+      border-radius: convert($theme.borderRadius)
+      outline: none
+      padding: 20px
+      font-size: 18px
+      font-family: 'Helvetica Neue', helvetica, sans-serif
+      transition: transform .3s ease
+      &:hover
+        cursor: pointer
+      &:focus
+        transform: translateY(4px)
+    \`;
+    // Finally, let's use our Stylus middleware to render actual CSS
+    // and return it with a Promise
+    return new Promise((yep, nope) => stylus(styl.trim())
+      .define('$theme', theme, true)
+      .render((err, css) => err ? nope(err) : yep(css))
     );
-  }
-
-  // Method that switches the component's theme.
-  // Will toggle from 'light' to 'dark' and vice versa.
-  switchTheme(e) {
-    let { name } = MyButton;
-    let theme = Utils.getTheme(name);
-    theme = 'light' === theme ? 'dark' : 'light';
-    Utils.setTheme(name, theme);
   }
 
 }
