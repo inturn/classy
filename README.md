@@ -1,13 +1,20 @@
 <p align="center">
   <img src="https://inturn.github.io/classy/dist/classy-logo-color.svg" alt="Classy lolo" height="150" />
 </p>
-
-[![npm version](https://badge.fury.io/js/react-classy.svg)](http://badge.fury.io/js/react-classy)
-[![Build Status](https://travis-ci.org/inturn/classy.svg)](https://travis-ci.org/inturn/classy)
-[![Dependency Status](https://david-dm.org/inturn/classy.svg)](https://david-dm.org/inturn/classy)
-[![devDependency Status](https://david-dm.org/inturn/classy/dev-status.svg)](https://david-dm.org/inturn/classy#info=devDependencies)
-
-##
+<p align="center">
+  <a href="http://badge.fury.io/js/react-classy">
+    <img alt="npm version" src="https://badge.fury.io/js/react-classy.svg" />
+  </a>
+  <a href="https://travis-ci.org/inturn/classy">
+    <img alt="build status" src="https://travis-ci.org/inturn/classy.svg" />
+  </a>
+  <a href="https://david-dm.org/inturn/classy">
+    <img alt="dependency status" src="https://david-dm.org/inturn/classy.svg" />
+  </a>
+  <a href="https://david-dm.org/inturn/classy#info=devDependencies">
+    <img alt="devdependency status" src="https://david-dm.org/inturn/classy/dev-status.svg" />
+  </a>
+</p>
 
 ### Table of Contents
 
