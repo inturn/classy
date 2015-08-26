@@ -72,7 +72,7 @@ export default class MyButton extends Component {
   }
 
   // Assign some stringified CSS to a static `style` prop
-  static style = \`
+  static style = `
     .my-button--default {
       color: white;
       background: #4b79cf;
@@ -90,7 +90,7 @@ export default class MyButton extends Component {
     .my-button--default:focus {
       transform: translateY(4px);
     }
-  \`
+  `
 
 }
 
@@ -115,7 +115,7 @@ import stylus from 'stylus';
   // Logs component css to console
   debug: true,
   // Will get style value from specified prop
-  // instead of default \`style\` prop
+  // instead of default `style` prop
   styleProp: 'stylus'
 })
 export default class ToggleButton extends Component {
@@ -159,7 +159,7 @@ export default class ToggleButton extends Component {
   // you can assign a method that returns Promise that fulfills a CSS string.
   // Our default theme is set via rest param.
   static stylus(theme=ToggleButton.theme.light) {
-    let styl = \`
+    let styl = `
     .toggle-button--default
       color: convert($theme.textColor)
       background: convert($theme.background)
@@ -174,7 +174,7 @@ export default class ToggleButton extends Component {
         cursor: pointer
       &:focus
         transform: translateY(4px)
-    \`;
+    `;
     // Finally, let's use our Stylus middleware to render actual CSS
     // and return it with a Promise
     return new Promise((yep, nope) => stylus(styl.trim())
