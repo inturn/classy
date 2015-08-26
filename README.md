@@ -1,5 +1,7 @@
 <p align="center">
-  <img src="https://inturn.github.io/classy/dist/classy-logo-color.svg" alt="Classy lolo" height="150" />
+  <a href="http://inturn.github.io/classy/">
+    <img alt="Classy logo" src="https://inturn.github.io/classy/dist/classy-logo-color.svg" height="150" />
+  </a>
 </p>
 <p align="center">
   <a href="http://badge.fury.io/js/react-classy">
