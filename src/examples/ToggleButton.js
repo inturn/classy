@@ -34,7 +34,7 @@ export default class ToggleButton extends Component {
   }
 
   // Let's define our themes as a static.
-  // This makes is easy for others to modify a component's theme(s)
+  // This makes it easy for others to modify a component's theme(s)
   // via class extension.
   static theme = {
     light: {
