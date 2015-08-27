@@ -1,11 +1,11 @@
 /******/ (function(modules) { // webpackBootstrap
 /******/  var parentHotUpdateCallback = this["webpackHotUpdate"];
-/******/  this["webpackHotUpdate"] = 
+/******/  this["webpackHotUpdate"] =
 /******/  function webpackHotUpdateCallback(chunkId, moreModules) { // eslint-disable-line no-unused-vars
 /******/    hotAddUpdateChunk(chunkId, moreModules);
 /******/    if(parentHotUpdateCallback) parentHotUpdateCallback(chunkId, moreModules);
 /******/  }
-/******/  
+/******/
 /******/  function hotDownloadUpdateChunk(chunkId) { // eslint-disable-line no-unused-vars
 /******/    var head = document.getElementsByTagName("head")[0];
 /******/    var script = document.createElement("script");
@@ -14,7 +14,7 @@
 /******/    script.src = __webpack_require__.p + "" + chunkId + "." + hotCurrentHash + ".hot-update.js";
 /******/    head.appendChild(script);
 /******/  }
-/******/  
+/******/
 /******/  function hotDownloadManifest(callback) { // eslint-disable-line no-unused-vars
 /******/    if(typeof XMLHttpRequest === "undefined")
 /******/      return callback(new Error("No browser support"));
@@ -51,13 +51,13 @@
 /******/    };
 /******/  }
 
-/******/  
-/******/  
+/******/
+/******/
 /******/  var hotApplyOnUpdate = true;
-/******/  var hotCurrentHash = "70a701daecfc4aec4e53"; // eslint-disable-line no-unused-vars
+/******/  var hotCurrentHash = "dfc84cfc2373bbab20a0"; // eslint-disable-line no-unused-vars
 /******/  var hotCurrentModuleData = {};
 /******/  var hotCurrentParents = []; // eslint-disable-line no-unused-vars
-/******/  
+/******/
 /******/  function hotCreateRequire(moduleId) { // eslint-disable-line no-unused-vars
 /******/    var me = installedModules[moduleId];
 /******/    if(!me) return __webpack_require__;
@@ -90,7 +90,7 @@
 /******/        } finally {
 /******/          finishChunkLoading();
 /******/        }
-/******/  
+/******/
 /******/        function finishChunkLoading() {
 /******/          hotChunksLoading--;
 /******/          if(hotStatus === "prepare") {
@@ -106,7 +106,7 @@
 /******/    };
 /******/    return fn;
 /******/  }
-/******/  
+/******/
 /******/  function hotCreateModule(moduleId) { // eslint-disable-line no-unused-vars
 /******/    var hot = {
 /******/      // private stuff
@@ -115,7 +115,7 @@
 /******/      _selfAccepted: false,
 /******/      _selfDeclined: false,
 /******/      _disposeHandlers: [],
-/******/  
+/******/
 /******/      // Module API
 /******/      active: true,
 /******/      accept: function(dep, callback) {
@@ -148,7 +148,7 @@
 /******/        var idx = hot._disposeHandlers.indexOf(callback);
 /******/        if(idx >= 0) hot._disposeHandlers.splice(idx, 1);
 /******/      },
-/******/  
+/******/
 /******/      // Management API
 /******/      check: hotCheck,
 /******/      apply: hotApply,
@@ -163,22 +163,22 @@
 /******/        var idx = hotStatusHandlers.indexOf(l);
 /******/        if(idx >= 0) hotStatusHandlers.splice(idx, 1);
 /******/      },
-/******/  
+/******/
 /******/      //inherit from previous dispose call
 /******/      data: hotCurrentModuleData[moduleId]
 /******/    };
 /******/    return hot;
 /******/  }
-/******/  
+/******/
 /******/  var hotStatusHandlers = [];
 /******/  var hotStatus = "idle";
-/******/  
+/******/
 /******/  function hotSetStatus(newStatus) {
 /******/    hotStatus = newStatus;
 /******/    for(var i = 0; i < hotStatusHandlers.length; i++)
 /******/      hotStatusHandlers[i].call(null, newStatus);
 /******/  }
-/******/  
+/******/
 /******/  // while downloading
 /******/  var hotWaitingFiles = 0;
 /******/  var hotChunksLoading = 0;
@@ -186,15 +186,15 @@
 /******/  var hotRequestedFilesMap = {};
 /******/  var hotAvailibleFilesMap = {};
 /******/  var hotCallback;
-/******/  
+/******/
 /******/  // The update info
 /******/  var hotUpdate, hotUpdateNewHash;
-/******/  
+/******/
 /******/  function toModuleId(id) {
 /******/    var isNumber = (+id) + "" === id;
 /******/    return isNumber ? +id : id;
 /******/  }
-/******/  
+/******/
 /******/  function hotCheck(apply, callback) {
 /******/    if(hotStatus !== "idle") throw new Error("check() is only allowed in idle status");
 /******/    if(typeof apply === "function") {
@@ -214,14 +214,14 @@
 /******/        callback(null, null);
 /******/        return;
 /******/      }
-/******/  
+/******/
 /******/      hotRequestedFilesMap = {};
 /******/      hotAvailibleFilesMap = {};
 /******/      hotWaitingFilesMap = {};
 /******/      for(var i = 0; i < update.c.length; i++)
 /******/        hotAvailibleFilesMap[update.c[i]] = true;
 /******/      hotUpdateNewHash = update.h;
-/******/  
+/******/
 /******/      hotSetStatus("prepare");
 /******/      hotCallback = callback;
 /******/      hotUpdate = {};
@@ -235,7 +235,7 @@
 /******/      }
 /******/    });
 /******/  }
-/******/  
+/******/
 /******/  function hotAddUpdateChunk(chunkId, moreModules) { // eslint-disable-line no-unused-vars
 /******/    if(!hotAvailibleFilesMap[chunkId] || !hotRequestedFilesMap[chunkId])
 /******/      return;
@@ -249,7 +249,7 @@
 /******/      hotUpdateDownloaded();
 /******/    }
 /******/  }
-/******/  
+/******/
 /******/  function hotEnsureUpdateChunk(chunkId) {
 /******/    if(!hotAvailibleFilesMap[chunkId]) {
 /******/      hotWaitingFilesMap[chunkId] = true;
@@ -259,7 +259,7 @@
 /******/      hotDownloadUpdateChunk(chunkId);
 /******/    }
 /******/  }
-/******/  
+/******/
 /******/  function hotUpdateDownloaded() {
 /******/    hotSetStatus("ready");
 /******/    var callback = hotCallback;
@@ -277,7 +277,7 @@
 /******/      callback(null, outdatedModules);
 /******/    }
 /******/  }
-/******/  
+/******/
 /******/  function hotApply(options, callback) {
 /******/    if(hotStatus !== "ready") throw new Error("apply() is only allowed in ready status");
 /******/    if(typeof options === "function") {
@@ -293,11 +293,11 @@
 /******/        if(err) throw err;
 /******/      };
 /******/    }
-/******/  
+/******/
 /******/    function getAffectedStuff(module) {
 /******/      var outdatedModules = [module];
 /******/      var outdatedDependencies = {};
-/******/  
+/******/
 /******/      var queue = outdatedModules.slice();
 /******/      while(queue.length > 0) {
 /******/        var moduleId = queue.pop();
@@ -328,10 +328,10 @@
 /******/          queue.push(parentId);
 /******/        }
 /******/      }
-/******/  
+/******/
 /******/      return [outdatedModules, outdatedDependencies];
 /******/    }
-/******/  
+/******/
 /******/    function addAllToSet(a, b) {
 /******/      for(var i = 0; i < b.length; i++) {
 /******/        var item = b[i];
@@ -339,7 +339,7 @@
 /******/          a.push(item);
 /******/      }
 /******/    }
-/******/  
+/******/
 /******/    // at begin all updates modules are outdated
 /******/    // the "outdated" status can propagate to parents if they don't accept the children
 /******/    var outdatedDependencies = {};
@@ -370,7 +370,7 @@
 /******/        }
 /******/      }
 /******/    }
-/******/  
+/******/
 /******/    // Store self accepted outdated modules to require them later by the module system
 /******/    var outdatedSelfAcceptedModules = [];
 /******/    for(var i = 0; i < outdatedModules.length; i++) {
@@ -381,7 +381,7 @@
 /******/          errorHandler: installedModules[moduleId].hot._selfAccepted
 /******/        });
 /******/    }
-/******/  
+/******/
 /******/    // Now in "dispose" phase
 /******/    hotSetStatus("dispose");
 /******/    var queue = outdatedModules.slice();
@@ -389,9 +389,9 @@
 /******/      var moduleId = queue.pop();
 /******/      var module = installedModules[moduleId];
 /******/      if(!module) continue;
-/******/  
+/******/
 /******/      var data = {};
-/******/  
+/******/
 /******/      // Call dispose handlers
 /******/      var disposeHandlers = module.hot._disposeHandlers;
 /******/      for(var j = 0; j < disposeHandlers.length; j++) {
@@ -399,13 +399,13 @@
 /******/        cb(data);
 /******/      }
 /******/      hotCurrentModuleData[moduleId] = data;
-/******/  
+/******/
 /******/      // disable module (this disables requires from this module)
 /******/      module.hot.active = false;
-/******/  
+/******/
 /******/      // remove module from cache
 /******/      delete installedModules[moduleId];
-/******/  
+/******/
 /******/      // remove "parents" references from all children
 /******/      for(var j = 0; j < module.children.length; j++) {
 /******/        var child = installedModules[module.children[j]];
@@ -416,7 +416,7 @@
 /******/        }
 /******/      }
 /******/    }
-/******/  
+/******/
 /******/    // remove outdated dependency from module children
 /******/    for(var moduleId in outdatedDependencies) {
 /******/      if(Object.prototype.hasOwnProperty.call(outdatedDependencies, moduleId)) {
@@ -429,19 +429,19 @@
 /******/        }
 /******/      }
 /******/    }
-/******/  
+/******/
 /******/    // Not in "apply" phase
 /******/    hotSetStatus("apply");
-/******/  
+/******/
 /******/    hotCurrentHash = hotUpdateNewHash;
-/******/  
+/******/
 /******/    // insert new code
 /******/    for(var moduleId in appliedUpdate) {
 /******/      if(Object.prototype.hasOwnProperty.call(appliedUpdate, moduleId)) {
 /******/        modules[moduleId] = appliedUpdate[moduleId];
 /******/      }
 /******/    }
-/******/  
+/******/
 /******/    // call accept handlers
 /******/    var error = null;
 /******/    for(var moduleId in outdatedDependencies) {
@@ -466,7 +466,7 @@
 /******/        }
 /******/      }
 /******/    }
-/******/  
+/******/
 /******/    // Load self accepted modules
 /******/    for(var i = 0; i < outdatedSelfAcceptedModules.length; i++) {
 /******/      var item = outdatedSelfAcceptedModules[i];
@@ -486,13 +486,13 @@
 /******/          error = err;
 /******/      }
 /******/    }
-/******/  
+/******/
 /******/    // handle errors in accept handlers and self accepted module load
 /******/    if(error) {
 /******/      hotSetStatus("fail");
 /******/      return callback(error);
 /******/    }
-/******/  
+/******/
 /******/    hotSetStatus("idle");
 /******/    callback(null, outdatedModules);
 /******/  }
@@ -1928,7 +1928,7 @@
 /* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
-  eval("/**\n *\n * Classy - State Helpers\n *\n * @module lib/state\n * @description\n *   Helpers for interfacing with Classy's state object\n */\n\n'use strict';\n\nvar _extends = __webpack_require__(231)['default'];\n\nvar _defineProperty = __webpack_require__(245)['default'];\n\nvar _interopRequireWildcard = __webpack_require__(229)['default'];\n\nObject.defineProperty(exports, '__esModule', {\n  value: true\n});\nexports.createComponentState = createComponentState;\nexports.nullifyComponentState = nullifyComponentState;\nexports.getComponentState = getComponentState;\nexports.setComponentState = setComponentState;\nexports.mergeComponentState = mergeComponentState;\nexports.decrProp = decrProp;\nexports.incrProp = incrProp;\n\nvar _misc = __webpack_require__(248);\n\nvar Misc = _interopRequireWildcard(_misc);\n\n/**\n *\n * Tracks the states of all Classy-decorated components\n *\n */\nvar STATE = {};\n\n/**\n *\n * [createComponentState description]\n *\n * @param  {ReactComponent} Component              [description]\n * @param  {Object}         [settings]             [description]\n * @param  {Boolean}        [debug=false]          [description]\n * @param  {String}         [styleProp=style]      [description]\n * @param  {String}         [themeProp=theme]      [description]\n * @param  {String}         [alias=${alias}_${Misc.genHash()}]\n *                                                 [description]\n * @param  {String}         [elemId=alias]         [description]\n * @param  {String}         [appendTo=head]        [description]\n * @param  {Object}         [elemProps ={ type: 'text/css' }]\n *                                                 [description]\n * @return {Object}                                Component state object\n */\n\nfunction createComponentState(Component) {\n  var _ref = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];\n\n  var _ref$debug = _ref.debug;\n  var debug = _ref$debug === undefined ? false : _ref$debug;\n  var _ref$dev = _ref.dev;\n  var dev = _ref$dev === undefined ? false : _ref$dev;\n  var _ref$styleProp = _ref.styleProp;\n  var styleProp = _ref$styleProp === undefined ? 'style' : _ref$styleProp;\n  var _ref$themeProp = _ref.themeProp;\n  var themeProp = _ref$themeProp === undefined ? 'theme' : _ref$themeProp;\n  var _ref$alias = _ref.alias;\n  var alias = _ref$alias === undefined ? Component.name : _ref$alias;\n  var _ref$elemId = _ref.elemId;\n  var elemId = _ref$elemId === undefined ? alias + '_' + Misc.genHash() : _ref$elemId;\n  var _ref$elemProps = _ref.elemProps;\n  var elemProps = _ref$elemProps === undefined ? { type: 'text/css' } : _ref$elemProps;\n  var _ref$appendTo = _ref.appendTo;\n  var appendTo = _ref$appendTo === undefined ? 'head' : _ref$appendTo;\n\n  var name = alias;\n  if (!name) throw new ReferenceError('Classy Error: createComponentState(...)\\n' + 'Component must have a \\'name\\' or component\\'s settings must have an \\'alias\\'.');\n  var state = getComponentState(name);\n  // Already has state\n  if (state && !dev) {\n    console.warn('Classy Warning: createComponentState(...)\\n' + ('State has already been created for component ' + name + '.'));\n  }\n  // Construct initial state\n  else {\n      setComponentState(name, {\n        Component: Component,\n        numMounted: 0,\n        isStyled: false,\n        currentTheme: undefined,\n        cssText: undefined,\n        settings: {\n          debug: debug,\n          dev: dev,\n          styleProp: styleProp,\n          themeProp: themeProp,\n          alias: alias,\n          elemId: elemId,\n          elemProps: elemProps,\n          appendTo: appendTo\n        }\n      });\n      if (debug) console.debug('Classy Debug: createComponentState(...)\\n', getComponentState(name));\n    }\n  return getComponentState(name);\n}\n\n/**\n *\n * Assigns component state to `null`\n *\n * @param  {[type]} name [description]\n */\n\nfunction nullifyComponentState(name) {\n  STATE[name] = null;\n}\n\n/**\n *\n * Gets a component's classy state object\n *\n * @param  {[type]} name [description]\n * @return {[type]}      [description]\n */\n\nfunction getComponentState(name) {\n  return STATE[name];\n}\n\n/**\n *\n * Sets a component's classy state object\n *\n * @param {[type]} name  [description]\n * @param {[type]} state [description]\n */\n\nfunction setComponentState(name, state) {\n  STATE[name] = state;\n}\n\n/**\n *\n * [mergeComponentState description]\n *\n * @param  {[type]} name  [description]\n * @param  {[type]} state [description]\n */\n\nfunction mergeComponentState(name, state) {\n  STATE[name] = _extends({}, STATE[name], state);\n}\n\n/**\n *\n * [removeStyleAndDecNumMounted description]\n *\n * @param  {[type]} name [description]\n * @return {[type]}      [description]\n */\n\nfunction decrProp(name, key) {\n  var _getComponentState = getComponentState(name);\n\n  var val = _getComponentState[key];\n\n  --val;\n  mergeComponentState(_defineProperty({}, key, val));\n}\n\n/**\n *\n * [appendStyleAndIncNumMounted description]\n *\n * @param  {[type]} name [description]\n * @return {[type]}      [description]\n */\n\nfunction incrProp(name, key) {\n  var _getComponentState2 = getComponentState(name);\n\n  var val = _getComponentState2[key];\n\n  ++val;\n  mergeComponentState(_defineProperty({}, key, val));\n}\n\n/*****************\n ** WEBPACK FOOTER\n ** ./~/react-classy/lib/state.js\n ** module id = 230\n ** module chunks = 0\n **/\n//# sourceURL=webpack:///./~/react-classy/lib/state.js?");
+  eval("/**\n *\n * Classy - State Helpers\n *\n * @module lib/state\n * @description\n *   Helpers for interfacing with Classy's state object\n */\n\n'use strict';\n\nvar _extends = __webpack_require__(231)['default'];\n\nvar _defineProperty = __webpack_require__(245)['default'];\n\nvar _interopRequireWildcard = __webpack_require__(229)['default'];\n\nObject.defineProperty(exports, '__esModule', {\n  value: true\n});\nexports.createComponentState = createComponentState;\nexports.nullifyComponentState = nullifyComponentState;\nexports.getComponentState = getComponentState;\nexports.setComponentState = setComponentState;\nexports.mergeComponentState = mergeComponentState;\nexports.decrProp = decrProp;\nexports.incrProp = incrProp;\n\nvar _misc = __webpack_require__(248);\n\nvar Misc = _interopRequireWildcard(_misc);\n\n/**\n *\n * Tracks the states of all Classy-decorated components\n *\n */\nvar STATE = {};\n\n/**\n *\n * [createComponentState description]\n *\n * @param  {ReactComponent} Component              [description]\n * @param  {Object}         [settings]             [description]\n * @param  {Boolean}        [debug=false]          [description]\n * @param  {String}         [styleProp=style]      [description]\n * @param  {String}         [themeProp=theme]      [description]\n * @param  {String}         [alias=${alias}_${Misc.genHash()}]\n *                                                 [description]\n * @param  {String}         [elemId=alias]         [description]\n * @param  {String}         [appendTo=head]        [description]\n * @param  {Object}         [elemProps ={ type: 'text/css' }]\n *                                                 [description]\n * @return {Object}                                Component state object\n */\n\nfunction createComponentState(Component) {\n  var _ref = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];\n\n  var _ref$debug = _ref.debug;\n  var debug = _ref$debug === undefined ? false : _ref$debug;\n  var _ref$dev = _ref.dev;\n  var dev = _ref$dev === undefined ? false : _ref$dev;\n  var _ref$styleProp = _ref.styleProp;\n  var styleProp = _ref$styleProp === undefined ? 'style' : _ref$styleProp;\n  var _ref$themeProp = _ref.themeProp;\n  var themeProp = _ref$themeProp === undefined ? 'theme' : _ref$themeProp;\n  var _ref$alias = _ref.alias;\n  var alias = _ref$alias === undefined ? Component.name : _ref$alias;\n  var _ref$elemId = _ref.elemId;\n  var elemId = _ref$elemId === undefined ? alias + '_' + Misc.genHash() : _ref$elemId;\n  var _ref$elemProps = _ref.elemProps;\n  var elemProps = _ref$elemProps === undefined ? { type: 'text/css' } : _ref$elemProps;\n  var _ref$appendTo = _ref.appendTo;\n  var appendTo = _ref$appendTo === undefined ? 'head' : _ref$appendTo;\n\n  var name = alias;\n  if (!name) throw new ReferenceError('Classy Error: createComponentState(...)\\n' + 'Component must have a \\'name\\' or component\\'s settings must have an \\'alias\\'.');\n  var state = getComponentState(name);\n  // Already has state\n  if (state && !dev) {\n    console.warn('Classy Warning: createComponentState(...)\\n' + ('State has already been created for component ' + name + '.'));\n  }\n  // Construct initial state\n  else {\n      setComponentState(name, {\n        Component: Component,\n        numMounted: 0,\n        isStyled: false,\n        currentTheme: undefined,\n        cssText: undefined,\n        settings: {\n          debug: debug,\n          dev: dev,\n          styleProp: styleProp,\n          themeProp: themeProp,\n          alias: alias,\n          elemId: elemId,\n          elemProps: elemProps,\n          appendTo: appendTo\n        }\n      });\n      if (debug) console.debug('Classy Debug: createComponentState(...)\\n', name + '\\n', getComponentState(name));\n    }\n  return getComponentState(name);\n}\n\n/**\n *\n * Assigns component state to `null`\n *\n * @param  {[type]} name [description]\n */\n\nfunction nullifyComponentState(name) {\n  STATE[name] = null;\n}\n\n/**\n *\n * Gets a component's classy state object\n *\n * @param  {[type]} name [description]\n * @return {[type]}      [description]\n */\n\nfunction getComponentState(name) {\n  return STATE[name];\n}\n\n/**\n *\n * Sets a component's classy state object\n *\n * @param {[type]} name  [description]\n * @param {[type]} state [description]\n */\n\nfunction setComponentState(name, state) {\n  STATE[name] = state;\n}\n\n/**\n *\n * [mergeComponentState description]\n *\n * @param  {[type]} name  [description]\n * @param  {[type]} state [description]\n */\n\nfunction mergeComponentState(name, state) {\n  STATE[name] = _extends({}, STATE[name], state);\n}\n\n/**\n *\n * [removeStyleAndDecNumMounted description]\n *\n * @param  {[type]} name [description]\n * @return {[type]}      [description]\n */\n\nfunction decrProp(name, key) {\n  var _getComponentState = getComponentState(name);\n\n  var val = _getComponentState[key];\n\n  --val;\n  mergeComponentState(_defineProperty({}, key, val));\n}\n\n/**\n *\n * [appendStyleAndIncNumMounted description]\n *\n * @param  {[type]} name [description]\n * @return {[type]}      [description]\n */\n\nfunction incrProp(name, key) {\n  var _getComponentState2 = getComponentState(name);\n\n  var val = _getComponentState2[key];\n\n  ++val;\n  mergeComponentState(_defineProperty({}, key, val));\n}\n\n/*****************\n ** WEBPACK FOOTER\n ** ./~/react-classy/lib/state.js\n ** module id = 230\n ** module chunks = 0\n **/\n//# sourceURL=webpack:///./~/react-classy/lib/state.js?");
 
 /***/ },
 /* 231 */
@@ -2402,7 +2402,7 @@
 /* 309 */
 /***/ function(module, exports, __webpack_require__) {
 
-  eval("/**\n *\n * Classy - DOM Helpers\n *\n * @module lib/DOM\n * @description\n *   Helpers for adding/removing Classy component styles to/from the DOM\n */\n\n'use strict';\n\nvar _regeneratorRuntime = __webpack_require__(250)['default'];\n\nvar _interopRequireWildcard = __webpack_require__(229)['default'];\n\nObject.defineProperty(exports, '__esModule', {\n  value: true\n});\nexports.updateStyle = updateStyle;\nexports.removeStyle = removeStyle;\n\nvar _state = __webpack_require__(230);\n\nvar State = _interopRequireWildcard(_state);\n\nvar _class = __webpack_require__(249);\n\nvar Class = _interopRequireWildcard(_class);\n\n/**\n *\n * [updateStyle description]\n *\n * @param  {[type]} name [description]\n * @return {[type]}      [description]\n * @return {Promise}\n */\n\nfunction updateStyle(name) {\n  var state, settings, appendTo, elemId, elemProps, debug, parent, cssText, style, prop;\n  return _regeneratorRuntime.async(function updateStyle$(context$1$0) {\n    while (1) switch (context$1$0.prev = context$1$0.next) {\n      case 0:\n        state = State.getComponentState(name);\n        settings = state.settings;\n        appendTo = settings.appendTo;\n        elemId = settings.elemId;\n        elemProps = settings.elemProps;\n        debug = settings.debug;\n        parent = document.querySelector(appendTo);\n\n        if (parent) {\n          context$1$0.next = 9;\n          break;\n        }\n\n        throw new ReferenceError();\n\n      case 9:\n        context$1$0.next = 11;\n        return _regeneratorRuntime.awrap(Class.getComponentCSS(name));\n\n      case 11:\n        cssText = context$1$0.sent;\n        style = document.getElementById(elemId) || document.createElement('style');\n\n        style.id = style.id || elemId;\n        context$1$0.t0 = _regeneratorRuntime.keys(elemProps);\n\n      case 15:\n        if ((context$1$0.t1 = context$1$0.t0()).done) {\n          context$1$0.next = 22;\n          break;\n        }\n\n        prop = context$1$0.t1.value;\n\n        if (elemProps.hasOwnProperty(prop)) {\n          context$1$0.next = 19;\n          break;\n        }\n\n        return context$1$0.abrupt('continue', 15);\n\n      case 19:\n        style[prop] = elemProps[prop];\n        context$1$0.next = 15;\n        break;\n\n      case 22:\n        style.type = style.type || elemProps;\n        style.innerHTML = cssText;\n        parent.appendChild(style);\n        State.mergeComponentState({\n          isStyled: true,\n          cssText: cssText\n        });\n        if (debug) console.debug('Classy Debug: updateStyle(...)\\n', name, cssText);\n        return context$1$0.abrupt('return', cssText);\n\n      case 28:\n      case 'end':\n        return context$1$0.stop();\n    }\n  }, null, this);\n}\n\n/**\n *\n * [removeStyle description]\n *\n * @param  {[type]} name [description]\n * @return {[type]}      [description]\n * @return {Promise}\n */\n\nfunction removeStyle(name) {\n  var state, settings, elemId, style;\n  return _regeneratorRuntime.async(function removeStyle$(context$1$0) {\n    while (1) switch (context$1$0.prev = context$1$0.next) {\n      case 0:\n        state = State.getComponentState(name);\n        settings = state.settings;\n        elemId = settings.elemId;\n        style = document.getElementById(elemId);\n\n        if (style) {\n          context$1$0.next = 6;\n          break;\n        }\n\n        return context$1$0.abrupt('return', console.warn());\n\n      case 6:\n        // <style id={elemId}> could not be selected\n        // ...\n\n        if (style.remove) style.remove();else style.parentElement.removeChild(style);\n        State.mergeComponentState({\n          isStyled: false,\n          cssText: undefined\n        });\n        if (debug) console.debug('Classy Debug: removeStyle(...)\\n', name);\n\n      case 9:\n      case 'end':\n        return context$1$0.stop();\n    }\n  }, null, this);\n}\n\n// Can't find parent node\n\n// appendTo element could not be selected\n// ...\n\n/*****************\n ** WEBPACK FOOTER\n ** ./~/react-classy/lib/dom.js\n ** module id = 309\n ** module chunks = 0\n **/\n//# sourceURL=webpack:///./~/react-classy/lib/dom.js?");
+  eval("/**\n *\n * Classy - DOM Helpers\n *\n * @module lib/DOM\n * @description\n *   Helpers for adding/removing Classy component styles to/from the DOM\n */\n\n'use strict';\n\nvar _regeneratorRuntime = __webpack_require__(250)['default'];\n\nvar _interopRequireWildcard = __webpack_require__(229)['default'];\n\nObject.defineProperty(exports, '__esModule', {\n  value: true\n});\nexports.updateStyle = updateStyle;\nexports.removeStyle = removeStyle;\n\nvar _state = __webpack_require__(230);\n\nvar State = _interopRequireWildcard(_state);\n\nvar _class = __webpack_require__(249);\n\nvar Class = _interopRequireWildcard(_class);\n\n/**\n *\n * [updateStyle description]\n *\n * @param  {[type]} name [description]\n * @return {[type]}      [description]\n * @return {Promise}\n */\n\nfunction updateStyle(name) {\n  var state, settings, appendTo, elemId, elemProps, debug, parent, cssText, style, prop;\n  return _regeneratorRuntime.async(function updateStyle$(context$1$0) {\n    while (1) switch (context$1$0.prev = context$1$0.next) {\n      case 0:\n        state = State.getComponentState(name);\n        settings = state.settings;\n        appendTo = settings.appendTo;\n        elemId = settings.elemId;\n        elemProps = settings.elemProps;\n        debug = settings.debug;\n        parent = document.querySelector(appendTo);\n\n        if (parent) {\n          context$1$0.next = 9;\n          break;\n        }\n\n        throw new ReferenceError();\n\n      case 9:\n        context$1$0.next = 11;\n        return _regeneratorRuntime.awrap(Class.getComponentCSS(name));\n\n      case 11:\n        cssText = context$1$0.sent;\n        style = document.getElementById(elemId) || document.createElement('style');\n\n        style.id = style.id || elemId;\n        context$1$0.t0 = _regeneratorRuntime.keys(elemProps);\n\n      case 15:\n        if ((context$1$0.t1 = context$1$0.t0()).done) {\n          context$1$0.next = 22;\n          break;\n        }\n\n        prop = context$1$0.t1.value;\n\n        if (elemProps.hasOwnProperty(prop)) {\n          context$1$0.next = 19;\n          break;\n        }\n\n        return context$1$0.abrupt('continue', 15);\n\n      case 19:\n        style[prop] = elemProps[prop];\n        context$1$0.next = 15;\n        break;\n\n      case 22:\n        style.type = style.type || elemProps;\n        style.innerHTML = cssText;\n        parent.appendChild(style);\n        State.mergeComponentState({\n          isStyled: true,\n          cssText: cssText\n        });\n        if (debug) console.debug('Classy Debug: updateStyle(...)\\n', name + '\\n', cssText);\n        return context$1$0.abrupt('return', cssText);\n\n      case 28:\n      case 'end':\n        return context$1$0.stop();\n    }\n  }, null, this);\n}\n\n/**\n *\n * [removeStyle description]\n *\n * @param  {[type]} name [description]\n * @return {[type]}      [description]\n * @return {Promise}\n */\n\nfunction removeStyle(name) {\n  var state, settings, elemId, style;\n  return _regeneratorRuntime.async(function removeStyle$(context$1$0) {\n    while (1) switch (context$1$0.prev = context$1$0.next) {\n      case 0:\n        state = State.getComponentState(name);\n        settings = state.settings;\n        elemId = settings.elemId;\n        style = document.getElementById(elemId);\n\n        if (style) {\n          context$1$0.next = 6;\n          break;\n        }\n\n        return context$1$0.abrupt('return', console.warn());\n\n      case 6:\n        // <style id={elemId}> could not be selected\n        // ...\n\n        if (style.remove) style.remove();else style.parentElement.removeChild(style);\n        State.mergeComponentState({\n          isStyled: false,\n          cssText: undefined\n        });\n        if (debug) console.debug('Classy Debug: removeStyle(...)\\n', name);\n\n      case 9:\n      case 'end':\n        return context$1$0.stop();\n    }\n  }, null, this);\n}\n\n// Can't find parent node\n\n// appendTo element could not be selected\n// ...\n\n/*****************\n ** WEBPACK FOOTER\n ** ./~/react-classy/lib/dom.js\n ** module id = 309\n ** module chunks = 0\n **/\n//# sourceURL=webpack:///./~/react-classy/lib/dom.js?");
 
 /***/ },
 /* 310 */
@@ -3284,7 +3284,7 @@
 /* 456 */
 /***/ function(module, exports, __webpack_require__) {
 
-  eval("/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(59), RootInstanceProvider = __webpack_require__(67), ReactMount = __webpack_require__(69), React = __webpack_require__(123); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } (function () {\n\n'use strict';\n\nObject.defineProperty(exports, '__esModule', {\n  value: true\n});\n\nvar _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();\n\nvar _get = function get(_x2, _x3, _x4) { var _again = true; _function: while (_again) { var object = _x2, property = _x3, receiver = _x4; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x2 = parent; _x3 = property; _x4 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }\n\nfunction _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }\n\nvar _react = __webpack_require__(123);\n\nvar _react2 = _interopRequireDefault(_react);\n\n// Import the decorator and utils modules\n\nvar _reactClassy = __webpack_require__(226);\n\n// CSS pre-processor\n\nvar _stylus2 = __webpack_require__(457);\n\nvar _stylus3 = _interopRequireDefault(_stylus2);\n\n// We can pass an optional settings object\n\nvar ToggleButton = (function (_Component) {\n  _inherits(ToggleButton, _Component);\n\n  function ToggleButton() {\n    _classCallCheck(this, _ToggleButton);\n\n    _get(Object.getPrototypeOf(_ToggleButton.prototype), 'constructor', this).apply(this, arguments);\n  }\n\n  _createClass(ToggleButton, [{\n    key: 'render',\n    value: function render() {\n      return _react2['default'].createElement('button', this.props);\n    }\n  }], [{\n    key: 'stylus',\n\n    // Instead of a hard-coding your CSS,\n    // you can assign a method that returns Promise that fulfills a CSS string.\n    // Our default theme is set via rest param.\n    value: function stylus() {\n      var theme = arguments.length <= 0 || arguments[0] === undefined ? ToggleButton.theme.light : arguments[0];\n\n      var styl = '\\n    .toggle-button--default\\n      color: convert($theme.textColor)\\n      background: convert($theme.background)\\n      border: 1px solid convert($theme.textColor)\\n      border-radius: convert($theme.borderRadius)\\n      outline: none\\n      padding: 20px\\n      font-size: 18px\\n      font-family: \\'Helvetica Neue\\', helvetica, sans-serif\\n      transition: transform .3s ease\\n      &:hover\\n        cursor: pointer\\n      &:focus\\n        transform: translateY(4px)\\n    ';\n      // Finally, let's use our Stylus middleware to render actual CSS\n      // and return it with a Promise\n      return new Promise(function (yep, nope) {\n        return (0, _stylus3['default'])(styl.trim()).define('$theme', theme, true).render(function (err, css) {\n          return err ? nope(err) : yep(css);\n        });\n      });\n    }\n  }, {\n    key: 'defaultProps',\n    value: {\n      className: 'toggle-button toggle-button--default',\n      children: 'Touch Me!',\n\n      // Method that switches the component's theme.\n      // Will toggle from 'light' to 'dark' and vice versa.\n      onClick: function switchTheme(e) {\n        var _ToggleButton2 = ToggleButton;\n        var name = _ToggleButton2.name;\n\n        var theme = _reactClassy.Utils.getTheme(name);\n        theme = 'dark' === theme ? 'light' : 'dark';\n        _reactClassy.Utils.setTheme(name, theme);\n      }\n\n    },\n\n    // Let's define our themes as a static.\n    // This makes is easy for others to modify a component's theme(s)\n    // via class extension.\n    enumerable: true\n  }, {\n    key: 'theme',\n    value: {\n      light: {\n        textColor: '#a24bcf',\n        background: 'transparent',\n        borderRadius: '30px'\n      },\n      dark: {\n        textColor: '#fff',\n        background: '#4b79cf',\n        borderRadius: '4px'\n      }\n    },\n    enumerable: true\n  }]);\n\n  var _ToggleButton = ToggleButton;\n  ToggleButton = (0, _reactClassy.Classy)({\n    // Logs component css to console\n    debug: true,\n    // Will get style value from specified prop\n    // instead of default `style` prop\n    styleProp: 'stylus'\n  })(ToggleButton) || ToggleButton;\n  return ToggleButton;\n})(_react.Component);\n\nexports['default'] = ToggleButton;\nmodule.exports = exports['default'];\n\n/* REACT HOT LOADER */ }).call(this); if (true) { (function () { module.hot.dispose(function (data) { data.makeHot = module.makeHot; }); if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(311), foundReactClasses = false; if (makeExportsHot(module, __webpack_require__(123))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error(\"Cannot not apply hot update to \" + \"ToggleButton.js\" + \": \" + err.message); } }); } } })(); }\n/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(33)(module)))\n\n/*****************\n ** WEBPACK FOOTER\n ** ./src/examples/ToggleButton.js\n ** module id = 456\n ** module chunks = 0\n **/\n//# sourceURL=webpack:///./src/examples/ToggleButton.js?");
+  eval("/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(59), RootInstanceProvider = __webpack_require__(67), ReactMount = __webpack_require__(69), React = __webpack_require__(123); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } (function () {\n\n'use strict';\n\nObject.defineProperty(exports, '__esModule', {\n  value: true\n});\n\nvar _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();\n\nvar _get = function get(_x2, _x3, _x4) { var _again = true; _function: while (_again) { var object = _x2, property = _x3, receiver = _x4; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x2 = parent; _x3 = property; _x4 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }\n\nfunction _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }\n\nvar _react = __webpack_require__(123);\n\nvar _react2 = _interopRequireDefault(_react);\n\n// Import the decorator and utils modules\n\nvar _reactClassy = __webpack_require__(226);\n\n// CSS pre-processor\n\nvar _stylus2 = __webpack_require__(457);\n\nvar _stylus3 = _interopRequireDefault(_stylus2);\n\n// We can pass an optional settings object\n\nvar ToggleButton = (function (_Component) {\n  _inherits(ToggleButton, _Component);\n\n  function ToggleButton() {\n    _classCallCheck(this, _ToggleButton);\n\n    _get(Object.getPrototypeOf(_ToggleButton.prototype), 'constructor', this).apply(this, arguments);\n  }\n\n  _createClass(ToggleButton, [{\n    key: 'render',\n    value: function render() {\n      return _react2['default'].createElement('button', this.props);\n    }\n  }], [{\n    key: 'stylus',\n\n    // Instead of a hard-coding your CSS,\n    // you can assign a method that returns Promise that fulfills a CSS string.\n    // Our default theme is set via rest param.\n    value: function stylus() {\n      var theme = arguments.length <= 0 || arguments[0] === undefined ? ToggleButton.theme.light : arguments[0];\n\n      var styl = '\\n    .toggle-button--default\\n      color: convert($theme.textColor)\\n      background: convert($theme.background)\\n      border: 1px solid convert($theme.textColor)\\n      border-radius: convert($theme.borderRadius)\\n      outline: none\\n      padding: 20px\\n      font-size: 18px\\n      font-family: \\'Helvetica Neue\\', helvetica, sans-serif\\n      transition: transform .3s ease\\n      &:hover\\n        cursor: pointer\\n      &:focus\\n        transform: translateY(4px)\\n    ';\n      // Finally, let's use our Stylus middleware to render actual CSS\n      // and return it with a Promise\n      return new Promise(function (yep, nope) {\n        return (0, _stylus3['default'])(styl.trim()).define('$theme', theme, true).render(function (err, css) {\n          return err ? nope(err) : yep(css);\n        });\n      });\n    }\n  }, {\n    key: 'defaultProps',\n    value: {\n      className: 'toggle-button toggle-button--default',\n      children: 'Touch Me!',\n\n      // Method that switches the component's theme.\n      // Will toggle from 'light' to 'dark' and vice versa.\n      onClick: function switchTheme(e) {\n        var _ToggleButton2 = ToggleButton;\n        var name = _ToggleButton2.name;\n\n        var theme = _reactClassy.Utils.getTheme(name);\n        theme = 'dark' === theme ? 'light' : 'dark';\n        _reactClassy.Utils.setTheme(name, theme);\n      }\n\n    },\n\n    // Let's define our themes as a static.\n    // This makes it easy for others to modify a component's theme(s)\n    // via class extension.\n    enumerable: true\n  }, {\n    key: 'theme',\n    value: {\n      light: {\n        textColor: '#a24bcf',\n        background: 'transparent',\n        borderRadius: '30px'\n      },\n      dark: {\n        textColor: '#fff',\n        background: '#4b79cf',\n        borderRadius: '4px'\n      }\n    },\n    enumerable: true\n  }]);\n\n  var _ToggleButton = ToggleButton;\n  ToggleButton = (0, _reactClassy.Classy)({\n    // Logs component css to console\n    debug: true,\n    // Will get style value from specified prop\n    // instead of default `style` prop\n    styleProp: 'stylus'\n  })(ToggleButton) || ToggleButton;\n  return ToggleButton;\n})(_react.Component);\n\nexports['default'] = ToggleButton;\nmodule.exports = exports['default'];\n\n/* REACT HOT LOADER */ }).call(this); if (true) { (function () { module.hot.dispose(function (data) { data.makeHot = module.makeHot; }); if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(311), foundReactClasses = false; if (makeExportsHot(module, __webpack_require__(123))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error(\"Cannot not apply hot update to \" + \"ToggleButton.js\" + \": \" + err.message); } }); } } })(); }\n/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(33)(module)))\n\n/*****************\n ** WEBPACK FOOTER\n ** ./src/examples/ToggleButton.js\n ** module id = 456\n ** module chunks = 0\n **/\n//# sourceURL=webpack:///./src/examples/ToggleButton.js?");
 
 /***/ },
 /* 457 */
@@ -3332,7 +3332,7 @@
 /* 464 */
 /***/ function(module, exports) {
 
-  eval("module.exports = \"import React, { Component } from 'react';\\n// Import the decorator and utils modules\\nimport { Classy, Utils } from 'react-classy';\\n// CSS pre-processor\\nimport stylus from 'stylus';\\n\\n// We can pass an optional settings object\\n@Classy({\\n  // Logs component css to console\\n  debug: true,\\n  // Will get style value from specified prop\\n  // instead of default `style` prop\\n  styleProp: 'stylus'\\n})\\nexport default class ToggleButton extends Component {\\n\\n  render() {\\n    return <button {...this.props} />;\\n  }\\n\\n  static defaultProps = {\\n    className: 'toggle-button toggle-button--default',\\n    children: 'Touch Me!',\\n\\n    // Method that switches the component's theme.\\n    // Will toggle from 'light' to 'dark' and vice versa.\\n    onClick: function switchTheme(e) {\\n      let { name } = ToggleButton;\\n      let theme = Utils.getTheme(name);\\n      theme = 'dark' === theme ? 'light' : 'dark';\\n      Utils.setTheme(name, theme);\\n    }\\n\\n  }\\n\\n  // Let's define our themes as a static.\\n  // This makes is easy for others to modify a component's theme(s)\\n  // via class extension.\\n  static theme = {\\n    light: {\\n      textColor: '#a24bcf',\\n      background: 'transparent',\\n      borderRadius: '30px'\\n    },\\n    dark: {\\n      textColor: '#fff',\\n      background: '#4b79cf',\\n      borderRadius: '4px'\\n    }\\n  }\\n\\n  // Instead of a hard-coding your CSS,\\n  // you can assign a method that returns Promise that fulfills a CSS string.\\n  // Our default theme is set via rest param.\\n  static stylus(theme=ToggleButton.theme.light) {\\n    let styl = `\\n    .toggle-button--default\\n      color: convert($theme.textColor)\\n      background: convert($theme.background)\\n      border: 1px solid convert($theme.textColor)\\n      border-radius: convert($theme.borderRadius)\\n      outline: none\\n      padding: 20px\\n      font-size: 18px\\n      font-family: 'Helvetica Neue', helvetica, sans-serif\\n      transition: transform .3s ease\\n      &:hover\\n        cursor: pointer\\n      &:focus\\n        transform: translateY(4px)\\n    `;\\n    // Finally, let's use our Stylus middleware to render actual CSS\\n    // and return it with a Promise\\n    return new Promise((yep, nope) => stylus(styl.trim())\\n      .define('$theme', theme, true)\\n      .render((err, css) => err ? nope(err) : yep(css))\\n    );\\n  }\\n\\n}\\n\"\n\n/*****************\n ** WEBPACK FOOTER\n ** ./~/raw-loader!./src/examples/ToggleButton.js\n ** module id = 464\n ** module chunks = 0\n **/\n//# sourceURL=webpack:///./src/examples/ToggleButton.js?./~/raw-loader");
+  eval("module.exports = \"import React, { Component } from 'react';\\n// Import the decorator and utils modules\\nimport { Classy, Utils } from 'react-classy';\\n// CSS pre-processor\\nimport stylus from 'stylus';\\n\\n// We can pass an optional settings object\\n@Classy({\\n  // Logs component css to console\\n  debug: true,\\n  // Will get style value from specified prop\\n  // instead of default `style` prop\\n  styleProp: 'stylus'\\n})\\nexport default class ToggleButton extends Component {\\n\\n  render() {\\n    return <button {...this.props} />;\\n  }\\n\\n  static defaultProps = {\\n    className: 'toggle-button toggle-button--default',\\n    children: 'Touch Me!',\\n\\n    // Method that switches the component's theme.\\n    // Will toggle from 'light' to 'dark' and vice versa.\\n    onClick: function switchTheme(e) {\\n      let { name } = ToggleButton;\\n      let theme = Utils.getTheme(name);\\n      theme = 'dark' === theme ? 'light' : 'dark';\\n      Utils.setTheme(name, theme);\\n    }\\n\\n  }\\n\\n  // Let's define our themes as a static.\\n  // This makes it easy for others to modify a component's theme(s)\\n  // via class extension.\\n  static theme = {\\n    light: {\\n      textColor: '#a24bcf',\\n      background: 'transparent',\\n      borderRadius: '30px'\\n    },\\n    dark: {\\n      textColor: '#fff',\\n      background: '#4b79cf',\\n      borderRadius: '4px'\\n    }\\n  }\\n\\n  // Instead of a hard-coding your CSS,\\n  // you can assign a method that returns Promise that fulfills a CSS string.\\n  // Our default theme is set via rest param.\\n  static stylus(theme=ToggleButton.theme.light) {\\n    let styl = `\\n    .toggle-button--default\\n      color: convert($theme.textColor)\\n      background: convert($theme.background)\\n      border: 1px solid convert($theme.textColor)\\n      border-radius: convert($theme.borderRadius)\\n      outline: none\\n      padding: 20px\\n      font-size: 18px\\n      font-family: 'Helvetica Neue', helvetica, sans-serif\\n      transition: transform .3s ease\\n      &:hover\\n        cursor: pointer\\n      &:focus\\n        transform: translateY(4px)\\n    `;\\n    // Finally, let's use our Stylus middleware to render actual CSS\\n    // and return it with a Promise\\n    return new Promise((yep, nope) => stylus(styl.trim())\\n      .define('$theme', theme, true)\\n      .render((err, css) => err ? nope(err) : yep(css))\\n    );\\n  }\\n\\n}\\n\"\n\n/*****************\n ** WEBPACK FOOTER\n ** ./~/raw-loader!./src/examples/ToggleButton.js\n ** module id = 464\n ** module chunks = 0\n **/\n//# sourceURL=webpack:///./src/examples/ToggleButton.js?./~/raw-loader");
 
 /***/ }
 /******/ ]);
