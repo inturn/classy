@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // Import the decorator and utils modules
-import { Classy, Utils } from 'react-classy';
+import Classy, { Utils } from 'react-classy';
 // CSS pre-processor
 import stylus from 'stylus';
 
@@ -10,7 +10,9 @@ import stylus from 'stylus';
   debug: true,
   // Will get style value from specified prop
   // instead of default `style` prop
-  styleProp: 'stylus'
+  styleProp: 'stylus',
+  // Makes Classy play nice with react-hot-loader
+  dev: true
 })
 export default class ToggleButton extends Component {
 

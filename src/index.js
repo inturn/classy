@@ -30,7 +30,7 @@ const APP = (
       <h2>React Styling. Plain and Simple.</h2>
       <p>
         Classy makes styling React components *composable*, *extensible*, and *simple*.
-        Usage requires only 3 steps:
+        And it only takes 3 steps:
       </p>
       <ul>
         <li>Import <code>react-classy</code> into your React component module.</li>
@@ -45,7 +45,8 @@ const APP = (
     </ContentSection>
     <div id="examples" />
     <ContentSection name="Basics">
-      <h2>Basics</h2>
+      <h2>The Basics</h2>
+      <h3>Creating A Simple Button</h3>
       <p>
         Let's say you have a file called <code>MyButton.js</code> in which you
         plan to create a simple button React component. Here's how you might
@@ -60,11 +61,13 @@ const APP = (
 
     <ContentSection name="Advanced">
       <h2>Advanced</h2>
+      <h3>Using Middleware (Stylus) and Theming</h3>
       <p>
-        Classy is also highly customizable and supports asynchronous style
-        rendering, custom middleware, and theming! In the next example, we'll
-        demonstrate all of the aforementioned while creating a button that
-        switches themes when clicked.
+        In the next example, <code>ToggleButton.js</code>, we'll use a <a
+          target="_blank"
+          href="https://github.com/inturn/classy/blob/gh-pages/stylus.min.js">
+          client-side version of Stylus
+        </a> to asynchronously render our styles and create a button that switches themes when clicked.
       </p>
       <CodeDemo height="300px">
         <ToggleButton />
@@ -76,7 +79,7 @@ const APP = (
       <h2>Recipes</h2>
       <p>
         <span>More examples coming soon... For now, take a look at our </span>
-        <a href="https://github.com/inturn/classy/tree/gh-pages">gh-pages branch</a>
+        <a href="https://github.com/inturn/classy/tree/gh-pages/src">gh-pages branch</a>
         <span> to see how we used it to style this website.</span>
       </p>
     </ContentSection>
