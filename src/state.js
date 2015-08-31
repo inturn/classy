@@ -7,7 +7,7 @@
  *   Helpers for interfacing with Classy's state object
  */
 
-import * as Misc from './misc';
+import * as Utils from './utils';
 
 /**
  *
@@ -25,7 +25,7 @@ const STATE = {};
  * @param  {Boolean}        [debug=false]          [description]
  * @param  {String}         [styleProp=style]      [description]
  * @param  {String}         [themeProp=theme]      [description]
- * @param  {String}         [alias=${alias}_${Misc.genHash()}]
+ * @param  {String}         [alias=${alias}_${Utils.genHash()}]
  *                                                 [description]
  * @param  {String}         [elemId=alias]         [description]
  * @param  {String}         [appendTo=head]        [description]
@@ -37,11 +37,11 @@ export function createComponentState(
   Component,
   {
     debug      = false,
-    dev        = false,
+    hot        = false,
     styleProp  = 'style',
     themeProp  = 'theme',
     alias      = Component.name,
-    elemId     = `${alias}_${Misc.genHash()}`,
+    elemId     = `${alias}_${Utils.genHash()}`,
     elemProps  = { type: 'text/css' },
     appendTo   = 'head'
   }={}
@@ -53,7 +53,7 @@ export function createComponentState(
   );
   let state = getComponentState(name);
   // Already has state
-  if (state && !dev) {
+  if (state && !hot) {
     console.warn(
       'Classy Warning: createComponentState(...)\n' +
       `State has already been created for component ${name}.`
@@ -69,7 +69,7 @@ export function createComponentState(
       cssText: undefined,
       settings: {
         debug,
-        dev,
+        hot,
         styleProp,
         themeProp,
         alias,

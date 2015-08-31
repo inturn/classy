@@ -1,7 +1,7 @@
 'use strict';
 
 const { TestUtils } = require('react/addons').addons;
-const { expect } = require('chai');
+import { expect } from 'chai';
 
 describe('Main module', () => {
 

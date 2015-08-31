@@ -29,7 +29,7 @@ export default function Classy(Component, settings) {
     Component.prototype &&
     Component === Component.prototype.constructor
   ) {
-    Class.reassignLifecycleMethods(Component, this);
+    Class.reassignLifecycleMethods(Component);
     let state = State.createComponentState(Component, settings);
     let { dev, alias } = state.settings;
     if (dev && State.getComponentState(alias)) {

@@ -29,10 +29,9 @@ export function reassignLifecycleMethods(...args) {
  * [reassignComponentWillMount description]
  *
  * @param  {[type]} Component [description]
- * @param  {[type]} instance  [description]
  * @return {[type]}           [description]
  */
-export function reassignComponentWillMount(Component, instance) {
+export function reassignComponentWillMount(Component) {
   let { componentWillMount: fn } = Component.prototype;
   if (fn && typeof fn !== 'function') throw new TypeError(
     'Classy Error: reassignComponentWillMount(...)\n' +
@@ -50,7 +49,7 @@ export function reassignComponentWillMount(Component, instance) {
       if (dev || !isStyled) {
         DOM.updateStyle(name).catch(console.error.bind(console));
       }
-      if (fn) fn.call(instance, ...args);
+      if (fn) fn.call(this, ...args);
     }
   });
 }
@@ -60,10 +59,9 @@ export function reassignComponentWillMount(Component, instance) {
  * [reassignComponentWillUnmount description]
  *
  * @param  {[type]} Component [description]
- * @param  {[type]} instance  [description]
  * @return {[type]}           [description]
  */
-export function reassignComponentWillUnmount(Component, instance) {
+export function reassignComponentWillUnmount(Component) {
   let { componentWillUnmount: fn } = Component.prototype;
   if (fn && typeof fn !== 'function') throw new TypeError(
     'Classy Error: reassignComponentWillUnmount(...)\n' +
@@ -76,12 +74,12 @@ export function reassignComponentWillUnmount(Component, instance) {
     value: function componentWillUnmount(...args) {
       let state = State.getComponentState(name);
       let { isStyled, debug, settings } = state;
-      let { dev } = settings;
+      let { hot } = settings;
       State.decrProp(name, 'numMounted');
-      if (dev || isStyled) {
+      if (hot || isStyled) {
         DOM.removeStyle(name).catch(console.error.bind(console));
       }
-      if (fn) fn.call(instance, ...args);
+      if (fn) fn.call(this, ...args);
     }
   });
 }
