@@ -3,7 +3,7 @@
 import React from 'react';
 import Classy from 'react-classy';
 
-@Classy({ dev: true })
+@Classy({ hot: true })
 export default class App extends React.Component {
   render() {
     return (

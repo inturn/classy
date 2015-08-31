@@ -3,7 +3,7 @@
 import React from 'react';
 import Classy from 'react-classy';
 
-@Classy({ dev: true })
+@Classy({ hot: true })
 export default class CodeDemo extends React.Component {
   render() {
     let { height } = this.props;

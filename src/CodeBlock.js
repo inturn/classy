@@ -5,7 +5,7 @@ import Classy from 'react-classy';
 import cx from 'classnames';
 import Highlight from 'react-highlight';
 
-@Classy({ dev: true })
+@Classy({ hot: true })
 export default class CodeBlock extends React.Component {
   render() {
     return (

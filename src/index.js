@@ -63,10 +63,10 @@ const APP = (
       <h2>Advanced</h2>
       <h3>Using Middleware (Stylus) and Theming</h3>
       <p>
-        In the next example, <code>ToggleButton.js</code>, we'll use a <a
+        In the next example, <code>ToggleButton.js</code>, we'll use <a
           target="_blank"
           href="https://github.com/inturn/classy/blob/gh-pages/stylus.min.js">
-          client-side version of Stylus
+          Stylus
         </a> to asynchronously render our styles and create a button that switches themes when clicked.
       </p>
       <CodeDemo height="300px">

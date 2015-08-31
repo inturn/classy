@@ -4,7 +4,7 @@ import React from 'react';
 import Classy from 'react-classy';
 import { vendorize } from './utils';
 
-@Classy({ dev: true })
+@Classy({ hot: true })
 export default class Navbar extends React.Component {
   render() {
     return (

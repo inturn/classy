@@ -12,7 +12,7 @@ import stylus from 'stylus';
   // instead of default `style` prop
   styleProp: 'stylus',
   // Makes Classy play nice with react-hot-loader
-  dev: true
+  hot: true
 })
 export default class ToggleButton extends Component {
 
