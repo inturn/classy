@@ -44,9 +44,9 @@ export function reassignComponentWillMount(Component) {
     value: function componentWillMount(...args) {
       let state = State.getComponentState(name);
       let { isStyled, debug, settings } = state;
-      let { dev } = settings;
+      let { hot } = settings;
       State.incrProp(name, 'numMounted');
-      if (dev || !isStyled) {
+      if (hot || !isStyled) {
         DOM.updateStyle(name).catch(console.error.bind(console));
       }
       if (fn) fn.call(this, ...args);

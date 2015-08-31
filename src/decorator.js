@@ -31,8 +31,8 @@ export default function Classy(Component, settings) {
   ) {
     Class.reassignLifecycleMethods(Component);
     let state = State.createComponentState(Component, settings);
-    let { dev, alias } = state.settings;
-    if (dev && State.getComponentState(alias)) {
+    let { hot, alias } = state.settings;
+    if (hot && State.getComponentState(alias)) {
       DOM.updateStyle(alias);
     }
   }
