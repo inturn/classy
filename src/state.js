@@ -66,6 +66,8 @@ export function createComponentState(
       numMounted: 0,
       isStyled: false,
       currentTheme: undefined,
+      previousTheme: undefined,
+      loadingStyles: false,
       cssText: undefined,
       settings: {
         debug,
@@ -143,7 +145,7 @@ export function mergeComponentState(name, state) {
 export function decrProp(name, key) {
   let { [key]: val } = getComponentState(name);
   --val;
-  mergeComponentState({ [key]: val });
+  mergeComponentState(name, { [key]: val });
 }
 
 /**
@@ -156,5 +158,5 @@ export function decrProp(name, key) {
 export function incrProp(name, key) {
   let { [key]: val } = getComponentState(name);
   ++val;
-  mergeComponentState({ [key]: val });
+  mergeComponentState(name, { [key]: val });
 }

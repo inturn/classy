@@ -12,10 +12,9 @@ import * as DOM from './dom';
 
 /**
  *
- * [reassignLifecycleMethods description]
+ * Reassigns component lifecycle methods for auto style un/mounting
  *
- * @param  {[type]} ...args [description]
- * @return {[type]}         [description]
+ * @param {*} args - Arugments passed by callee
  */
 export function reassignLifecycleMethods(...args) {
   [
@@ -26,49 +25,60 @@ export function reassignLifecycleMethods(...args) {
 
 /**
  *
- * [reassignComponentWillMount description]
+ * Updates styles before component mounts
  *
- * @param  {[type]} Component [description]
- * @return {[type]}           [description]
+ * @param  {ReactComponent} Component - React component to be styled
  */
 export function reassignComponentWillMount(Component) {
   let { componentWillMount: fn } = Component.prototype;
+  // TypeError: Component is NOT a class
   if (fn && typeof fn !== 'function') throw new TypeError(
     'Classy Error: reassignComponentWillMount(...)\n' +
     `Expected componentWillMount(...) to be a function.\n` +
     `-> Got type ${typeof fn}`
   );
   let { name } = Component;
+  // Reassign
   Object.defineProperty(Component.prototype, 'componentWillMount', {
     writable: true,
     value: function componentWillMount(...args) {
       let state = State.getComponentState(name);
-      let { isStyled, debug, settings } = state;
+      let { loadingStyles, isStyled, debug, settings } = state;
       let { hot } = settings;
       State.incrProp(name, 'numMounted');
-      if (hot || !isStyled) {
-        DOM.updateStyle(name).catch(console.error.bind(console));
+      if (hot || !isStyled && !loadingStyles) {
+        State.mergeComponentState(name, { loadingStyles: true });
+        (async () => {
+          try {
+            let res = await DOM.updateStyle(name);
+          } catch (err) {
+            console.error(err);
+          } finally {
+            State.mergeComponentState(name, { loadingStyles: false });
+          }
+        })();
       }
-      if (fn) fn.call(this, ...args);
+      if (fn) return fn.call(this, ...args);
     }
   });
 }
 
 /**
  *
- * [reassignComponentWillUnmount description]
+ * Removes styles before component unmounts
  *
- * @param  {[type]} Component [description]
- * @return {[type]}           [description]
+ * @param  {ReactComponent} Component - React component to be unstyled
  */
 export function reassignComponentWillUnmount(Component) {
   let { componentWillUnmount: fn } = Component.prototype;
+  // TypeError: Component is NOT a class
   if (fn && typeof fn !== 'function') throw new TypeError(
     'Classy Error: reassignComponentWillUnmount(...)\n' +
     `Expected componentWillUnmount(...) to be a function.\n` +
     `-> Got type ${typeof fn}`
   );
   let { name } = Component;
+  // Reassign
   Object.defineProperty(Component.prototype, 'componentWillUnmount', {
     writable: true,
     value: function componentWillUnmount(...args) {
@@ -79,36 +89,40 @@ export function reassignComponentWillUnmount(Component) {
       if (hot || isStyled) {
         DOM.removeStyle(name).catch(console.error.bind(console));
       }
-      if (fn) fn.call(this, ...args);
+      if (fn) return fn.call(this, ...args);
     }
   });
 }
 
 /**
  *
- * [getComponentCSS description]
+ * Gets a component's cssText
  *
- * @param  {[type]} name [description]
- * @return {[type]}      [description]
- * @return {Promise}
+ * @param  {String}  name - Component name
+ * @return {Promise}      - Promise to fulfill component cssText
  */
 export async function getComponentCSS(name) {
   let state = State.getComponentState(name);
-  let { Component, currentTheme, settings } = state;
+  let { Component, currentTheme, previousTheme, cssText, settings } = state;
   let { styleProp, themeProp, debug } = settings;
+  let { hot } = settings;
   let style = Component[styleProp];
   let themes = Component[themeProp];
   let theme = themes ? themes[currentTheme] : undefined;
   let returnValue;
-  // Style is a string
+  // Use cached cssText
+  if (!hot && cssText && currentTheme !== previousTheme) {
+    return cssText;
+  }
+  // style is a string
   if (typeof style === 'string') {
     returnValue = style;
   }
-  // Style returns a Promise
+  // style returns a Promise
   else if (typeof style === 'function') {
     returnValue = await style(theme);
   }
-  // Style is...something else
+  // TypeError: style is NOT a string or Promise
   else throw new TypeError(
     'Classy Error: getComponentCSS(...)\n' +
     `Expected component ${name}'s styleProp to be a string or Promise ` +

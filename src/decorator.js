@@ -30,11 +30,7 @@ export default function Classy(Component, settings) {
     Component === Component.prototype.constructor
   ) {
     Class.reassignLifecycleMethods(Component);
-    let state = State.createComponentState(Component, settings);
-    let { hot, alias } = state.settings;
-    if (hot && State.getComponentState(alias)) {
-      DOM.updateStyle(alias);
-    }
+    State.createComponentState(Component, settings);
   }
   // Component is...something else
   else throw new TypeError(

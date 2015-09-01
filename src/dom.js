@@ -12,11 +12,10 @@ import * as Class from './class';
 
 /**
  *
- * [updateStyle description]
+ * Creates a component's <style> tag and updates its cssText
  *
- * @param  {[type]} name [description]
- * @return {[type]}      [description]
- * @return {Promise}
+ * @param  {String}  name - Component name
+ * @return {Promise}      - Promise to fulfill component cssText
  */
 export async function updateStyle(name) {
   let state = State.getComponentState(name);
@@ -29,6 +28,7 @@ export async function updateStyle(name) {
     // ...
   );
   let cssText = await Class.getComponentCSS(name);
+  // Create <style>
   let style = (
     document.getElementById(elemId) ||
     document.createElement('style')
@@ -41,7 +41,8 @@ export async function updateStyle(name) {
   style.type = style.type || elemProps;
   style.innerHTML = cssText;
   parent.appendChild(style);
-  State.mergeComponentState({
+  // Update component state
+  State.mergeComponentState(name, {
     isStyled: true,
     cssText
   });
@@ -55,10 +56,9 @@ export async function updateStyle(name) {
 
 /**
  *
- * [removeStyle description]
+ * Removes a component's <style> tag
  *
- * @param  {[type]} name [description]
- * @return {[type]}      [description]
+ * @param  {String}  name - Component name
  * @return {Promise}
  */
 export async function removeStyle(name) {
@@ -72,7 +72,7 @@ export async function removeStyle(name) {
   );
   if (style.remove) style.remove();
   else style.parentElement.removeChild(style);
-  State.mergeComponentState({
+  State.mergeComponentState(name, {
     isStyled: false,
     cssText: undefined
   });
