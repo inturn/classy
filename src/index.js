@@ -35,11 +35,11 @@ const APP = (
       <ul>
         <li>Import <code>react-classy</code> into your React component module.</li>
         <li>Decorate your React component with <code>@Classy</code>.</li>
-        <li>Declare a static <code>style</code> prop on your React component.</li>
+        <li>Assign some CSS to a static <code>style</code> prop on your React component.</li>
       </ul>
       <p>
         The styles defined on your React component will get automatically injected into
-        the DOM right before your component mounts. Check out some basic and advanced
+        the DOM before it mounts. Check out some basic and advanced
         examples in the next section.
       </p>
     </ContentSection>

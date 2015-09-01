@@ -4,15 +4,19 @@ import Classy, { Utils } from 'react-classy';
 // CSS pre-processor
 import stylus from 'stylus';
 
-// We can pass an optional settings object
+// Custom settings:
 @Classy({
+
+  // Makes Classy play nice with react-hot-loader :)
+  hot: true
+
   // Logs component css to console
   debug: true,
-  // Will get style value from specified prop
+
+  // Will access specified prop to load component styles
   // instead of default `style` prop
   styleProp: 'stylus',
-  // Makes Classy play nice with react-hot-loader
-  hot: true
+
 })
 export default class ToggleButton extends Component {
 
