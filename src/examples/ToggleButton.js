@@ -4,7 +4,6 @@ import Classy, { Utils } from 'react-classy';
 // CSS pre-processor
 import stylus from 'stylus';
 
-// Custom settings:
 @Classy({
 
   // Makes Classy play nice with react-hot-loader :)
