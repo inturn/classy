@@ -30,7 +30,18 @@ export default function Classy(Component, settings) {
     Component === Component.prototype.constructor
   ) {
     Class.reassignLifecycleMethods(Component);
-    State.createComponentState(Component, settings);
+    let state = State.createComponentState(Component, settings);
+    let { alias: name } = state.settings;
+    State.mergeComponentState(name, { loadingStyles: true });
+    (async () => {
+      try {
+        await DOM.updateStyle(name);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        State.mergeComponentState(name, { loadingStyles: false });
+      }
+    })();
   }
   // Component is...something else
   else throw new TypeError(
