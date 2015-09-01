@@ -56,20 +56,26 @@ export default class ToggleButton extends Component {
   // Our default theme is set via rest param.
   static stylus(theme=ToggleButton.theme.light) {
     let styl = `
-    .toggle-button--default
-      color: convert($theme.textColor)
-      background: convert($theme.background)
-      border: 1px solid convert($theme.textColor)
-      border-radius: convert($theme.borderRadius)
-      outline: none
-      padding: 20px
-      font-size: 18px
-      font-family: 'Helvetica Neue', helvetica, sans-serif
-      transition: transform .3s ease
-      &:hover
-        cursor: pointer
-      &:focus
-        transform: translateY(4px)
+
+    .toggle-button
+
+      &--default
+        color: convert($theme.textColor)
+        background: convert($theme.background)
+        border: 1px solid convert($theme.textColor)
+        border-radius: convert($theme.borderRadius)
+        outline: none
+        padding: 20px
+        font-size: 18px
+        font-family: 'Helvetica Neue', helvetica, sans-serif
+        transition: transform .3s ease
+
+        &:hover
+          cursor: pointer
+
+        &:focus
+          transform: translateY(4px)
+
     `;
     // Finally, let's use our Stylus middleware to render actual CSS
     // and return it with a Promise
