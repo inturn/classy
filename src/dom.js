@@ -64,7 +64,7 @@ export async function updateStyle(name) {
 export async function removeStyle(name) {
   let state = State.getComponentState(name);
   let { settings } = state;
-  let { elemId } = settings;
+  let { debug, elemId } = settings;
   let style = document.getElementById(elemId);
   if (!style) return console.warn(
     // <style id={elemId}> could not be selected
