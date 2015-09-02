@@ -7,6 +7,9 @@
   <a href="http://badge.fury.io/js/react-classy">
     <img alt="npm version" src="https://badge.fury.io/js/react-classy.svg" />
   </a>
+  <a>
+    <img alt="npm downloads" src="http://img.shields.io/npm/dm/react-classy.svg" />
+  </a>
   <a href="https://travis-ci.org/inturn/classy">
     <img alt="build status" src="https://travis-ci.org/inturn/classy.svg" />
   </a>
