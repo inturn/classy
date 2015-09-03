@@ -49,4 +49,6 @@ export default function Classy(Component, settings) {
     `Expected component to be a class (function).\n` +
     `-> Got type '${typeof Component}'.`
   );
+  // All done!
+  return Component;
 }
