@@ -11,27 +11,28 @@ import * as Utils from './utils';
 
 /**
  *
- * Tracks the states of all Classy-decorated components
+ * Tracks the states of all Classy components
  *
  */
 const STATE = {};
 
 /**
  *
- * [createComponentState description]
+ * Creates a Classy component state object
  *
- * @param  {ReactComponent} Component              [description]
- * @param  {Object}         [settings]             [description]
- * @param  {Boolean}        [debug=false]          [description]
- * @param  {String}         [styleProp=style]      [description]
- * @param  {String}         [themeProp=theme]      [description]
- * @param  {String}         [alias=${alias}_${Utils.genHash()}]
- *                                                 [description]
- * @param  {String}         [elemId=alias]         [description]
- * @param  {String}         [appendTo=head]        [description]
- * @param  {Object}         [elemProps ={ type: 'text/css' }]
- *                                                 [description]
- * @return {Object}                                Component state object
+ * @param  {ReactComponent} Component                          - A ReactComponent
+ * @param  {Object}         settings                           - Settings object with the following options:
+ * @param  {Boolean}        debug=false                        - Print rendered style to debug console
+ * @param  {Boolean}        hot=false                          - Applies two effects:
+ *                                                               - Replace Component ref in state object when redecorated
+ *                                                               - Always update styles when mounting an instance
+ * @param  {String}         styleProp=style                    - Component prop to access for getting styles
+ * @param  {String}         themeProp=theme                    - Component prop to access for getting themes
+ * @param  {String}         alias=Component.name               - Key under which component state will be cached
+ * @param  {String}         elemId=${alias}_${Utils.genHash()} - ID prop for component <style> tag
+ * @param  {Object}         elemProps={ type: 'text/css' }     - Other props to apply to component <style> tag
+ * @param  {String}         appendTo=head                      - Element to append component <style> tag to
+ * @return {Object}                                            - Component state object
  */
 export function createComponentState(
   Component,
@@ -93,70 +94,72 @@ export function createComponentState(
  *
  * Assigns component state to `null`
  *
- * @param  {[type]} name [description]
+ * @param {String} alias - Component alias
  */
-export function nullifyComponentState(name) {
-  STATE[name] = null;
+export function nullifyComponentState(alias) {
+  STATE[alias] = null;
 }
 
 /**
  *
  * Gets a component's classy state object
  *
- * @param  {[type]} name [description]
- * @return {[type]}      [description]
+ * @param  {String} alias - Component alias
+ * @return {Object}       - State object
  */
-export function getComponentState(name) {
-  return STATE[name];
+export function getComponentState(alias) {
+  return STATE[alias];
 }
 
 /**
  *
  * Sets a component's classy state object
  *
- * @param {[type]} name  [description]
- * @param {[type]} state [description]
+ * @param {String} alias - Component alias
+ * @param {Object} state - State object
  */
-export function setComponentState(name, state) {
-  STATE[name] = state;
+export function setComponentState(alias, state) {
+  STATE[alias] = state;
 }
 
 /**
  *
- * [mergeComponentState description]
+ * Shallow merges object into component state
  *
- * @param  {[type]} name  [description]
- * @param  {[type]} state [description]
+ * @param {String} alias  - Component alias
+ * @param {Object} state  - Object to be merged into state
  */
-export function mergeComponentState(name, state) {
-  STATE[name] = {
-    ...STATE[name],
+export function mergeComponentState(alias, state) {
+  STATE[alias] = {
+    ...STATE[alias],
     ...state
   };
 }
 
 /**
  *
- * [removeStyleAndDecNumMounted description]
+ * Decrements a component state object prop
  *
- * @param  {[type]} name [description]
- * @return {[type]}      [description]
+ * @param {String} alias - Component alias
+ * @param {String} key   - Key of prop to be decremented
+ * @param {Number} num   - Amount to decrement
  */
-export function decrProp(name, key) {
+export function decrProp(name, key, num=1) {
   let { [key]: val } = getComponentState(name);
-  --val;
+  val -= num;
   mergeComponentState(name, { [key]: val });
 }
 
 /**
  *
- * [appendStyleAndIncNumMounted description]
+ * Increments a component state object prop
  *
- * @param  {[type]} name [description]
- * @return {[type]}      [description]
+ * @param {String} alias - Component alias
+ * @param {String} key   - Key of prop to be incremented
+ * @param {Number} num   - Amount to increment
  */
-export function incrProp(name, key) {
+export function incrProp(name, key, num=1) {
   let { [key]: val } = getComponentState(name);
-  ++val;
+  val += num;
   mergeComponentState(name, { [key]: val });
 }

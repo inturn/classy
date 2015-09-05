@@ -14,11 +14,11 @@ import * as Class from './class';
  *
  * Creates a component's <style> tag and updates its cssText
  *
- * @param  {String}  name - Component name
- * @return {Promise}      - Promise to fulfill component cssText
+ * @param  {String}  alias - Component alias
+ * @return {Promise}       - Promise to fulfill component cssText
  */
-export async function updateStyle(name) {
-  let state = State.getComponentState(name);
+export async function updateStyle(alias) {
+  let state = State.getComponentState(alias);
   let { settings } = state;
   let { appendTo, elemId, elemProps, debug } = settings;
   let parent = document.querySelector(appendTo);
@@ -27,7 +27,7 @@ export async function updateStyle(name) {
     // appendTo element could not be selected
     // ...
   );
-  let cssText = await Class.getComponentCSS(name);
+  let cssText = await Class.getComponentCSS(alias);
   // Create <style>
   let style = (
     document.getElementById(elemId) ||
@@ -42,13 +42,14 @@ export async function updateStyle(name) {
   style.innerHTML = cssText;
   parent.appendChild(style);
   // Update component state
-  State.mergeComponentState(name, {
+  State.mergeComponentState(alias, {
     isStyled: true,
     cssText
   });
   if (debug) console.debug(
     'Classy Debug: updateStyle(...)\n',
-    name+'\n',
+    `${alias} cssText:
+    `,
     cssText
   );
   return cssText;
@@ -58,11 +59,11 @@ export async function updateStyle(name) {
  *
  * Removes a component's <style> tag
  *
- * @param  {String}  name - Component name
+ * @param  {String}  alias - Component alias
  * @return {Promise}
  */
-export async function removeStyle(name) {
-  let state = State.getComponentState(name);
+export async function removeStyle(alias) {
+  let state = State.getComponentState(alias);
   let { settings } = state;
   let { debug, elemId } = settings;
   let style = document.getElementById(elemId);
@@ -72,12 +73,12 @@ export async function removeStyle(name) {
   );
   if (style.remove) style.remove();
   else style.parentElement.removeChild(style);
-  State.mergeComponentState(name, {
+  State.mergeComponentState(alias, {
     isStyled: false,
     cssText: undefined
   });
   if (debug) console.debug(
     'Classy Debug: removeStyle(...)\n',
-    name
+    `${alias} styles were removed`
   );
 }

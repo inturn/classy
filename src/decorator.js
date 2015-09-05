@@ -4,7 +4,7 @@
  *
  * @module lib/decorator
  * @description
- *   Reassigns component lifecycle methods and creates a state object
+ *   Reassigns component lifecycle methods and creates a component state object
  */
 
 import * as State from './state';
@@ -13,10 +13,31 @@ import * as DOM from './dom';
 
 /**
  *
- * @Classy(...)
+ * ReactComponent class decorator
  *
- * @param  {ReactComponent} Component   [description]
- * @param  {Object}         [settings]  [description]
+ * - Decorator usage:
+ *   @Classy([settings])
+ *
+ * - Functional usage:
+ *   Classy(Component [, settings])
+ *
+ * @param  {ReactComponent} Component - Component to be decorated
+ * @param  {Object}         settings  - Settings object -- See State.createComponentState(...)
+ * @return {ReactComponent}           - Decorated component
+ * @example
+ *
+ *   // ES2016
+ *   @Classy
+ *   export default class MyComponent extends React.Component { ... }
+ *
+ *   // ES2015
+ *   class MyComponent extends React.Component { ... }
+ *   export default Classy(MyComponent);
+ *
+ *	 // ES5
+ *	 var MyComponent = React.createClass({ ... });
+ *	 module.exports = Classy(MyComponent);
+ *
  */
 export default function Classy(Component, settings) {
   // Component is a settings object
@@ -29,21 +50,33 @@ export default function Classy(Component, settings) {
     Component.prototype &&
     Component === Component.prototype.constructor
   ) {
-    Class.reassignLifecycleMethods(Component);
+    // Create state object
     let state = State.createComponentState(Component, settings);
-    let { alias: name } = state.settings;
-    State.mergeComponentState(name, { loadingStyles: true });
+    let { alias } = state.settings;
+    // Reassign lifecycle methods (mutates Component)
+    Class.reassignLifecycleMethods(Component, alias);
+    // Update state
+    State.mergeComponentState(alias, {
+      // component ref
+      Component,
+      // loading
+      loadingStyles: true
+    });
+    // Update component styles
     (async () => {
       try {
-        await DOM.updateStyle(name);
+        await DOM.updateStyle(alias);
       } catch (err) {
         console.error(err);
       } finally {
-        State.mergeComponentState(name, { loadingStyles: false });
+        State.mergeComponentState(alias, {
+          // loading complete
+          loadingStyles: false
+        });
       }
     })();
   }
-  // Component is...something else
+  // Component is not a class nor a settings object
   else throw new TypeError(
     'Classy Error: classyDecorate(...)\n' +
     `Expected component to be a class (function).\n` +

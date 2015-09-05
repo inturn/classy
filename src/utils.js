@@ -28,11 +28,11 @@ export default {
 
 /**
  *
- * [setTheme description]
+ * Updates component styles with specified theme object
  *
- * @param  {[type]} name         [description]
- * @param  {[type]} currentTheme [description]
- * @param  {[type]} force        [description]
+ * @param  {String}  name        - Classy component name
+ * @param  {String}  theme       - Classy component theme name
+ * @param  {Boolean} force=false - Re-render theme if already applied
  * @return {Promise}
  */
 async function setTheme(name, theme, force=false) {
@@ -50,20 +50,16 @@ async function setTheme(name, theme, force=false) {
  *
  * Convenience method for getComponentState(...).currentTheme
  *
- * @param  {[type]} name [description]
- * @return {[type]}      [description]
+ * @return {String} - Name of the currently applied theme
  */
-function getTheme(name) {
-  return State.getComponentState(name).currentTheme;
+function getTheme(...args) {
+  return State.getComponentState(...args).currentTheme;
 }
 
 /**
  *
  * Curries async updateStyle(...)
  *
- * @param  {[type]} ...args [description]
- * @return {[type]}         [description]
- * @return {Promise}
  */
 async function updateStyle(...args) {
   return await DOM.updateStyle(...args);
@@ -73,9 +69,6 @@ async function updateStyle(...args) {
  *
  * Curries async removeStyle(...)
  *
- * @param  {[type]} ...args [description]
- * @return {[type]}         [description]
- * @return {Promise}
  */
 async function removeStyle(...args) {
   return await DOM.removeStyle(...args);
@@ -83,22 +76,17 @@ async function removeStyle(...args) {
 
 /**
  *
- * Curries getComponentState(...)
+ * Curries State.getComponentState(...)
  *
- * @desc   Curries State.getComponentState(...)
- * @param  {[type]} name [description]
- * @return {[type]}      [description]
  */
-function getComponentState(name) {
-  return State.getComponentState(name);
+function getComponentState(...args) {
+  return State.getComponentState(...args);
 }
 
 /**
  *
  * Manually initalize your component with Classy
  *
- * @param  {[type]} ...args [description]
- * @return {[type]}         [description]
  */
 function initClassy(...args) {
   return State.createComponentState(...args);
@@ -106,10 +94,10 @@ function initClassy(...args) {
 
 /**
  *
- * [genHash description]
+ * Generates a simple hash with low prob of collision
  *
- * @param  {[type]} len=5 [description]
- * @return {String}       A five char hash
+ * @param  {Number} len=5 - Length of hash to be generated
+ * @return {String}       - A five char hash
  */
 function genHash(len=5) {
   let hash = (+new Date * Math.random())

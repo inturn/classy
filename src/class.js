@@ -29,32 +29,31 @@ export function reassignLifecycleMethods(...args) {
  *
  * @param  {ReactComponent} Component - React component to be styled
  */
-export function reassignComponentWillMount(Component) {
+export function reassignComponentWillMount(Component, alias) {
   let { componentWillMount: fn } = Component.prototype;
-  // TypeError: Component is NOT a class
+  // Component is NOT a class
   if (fn && typeof fn !== 'function') throw new TypeError(
     'Classy Error: reassignComponentWillMount(...)\n' +
     `Expected componentWillMount(...) to be a function.\n` +
     `-> Got type ${typeof fn}`
   );
-  let { name } = Component;
-  // Reassign
+  // Update prop descriptor
   Object.defineProperty(Component.prototype, 'componentWillMount', {
     writable: true,
     value: function componentWillMount(...args) {
-      let state = State.getComponentState(name);
+      let state = State.getComponentState(alias);
       let { loadingStyles, isStyled, debug, settings } = state;
       let { hot } = settings;
-      State.incrProp(name, 'numMounted');
+      State.incrProp(alias, 'numMounted');
       if (hot || !isStyled && !loadingStyles) {
-        State.mergeComponentState(name, { loadingStyles: true });
+        State.mergeComponentState(alias, { loadingStyles: true });
         (async () => {
           try {
-            let res = await DOM.updateStyle(name);
+            let res = await DOM.updateStyle(alias);
           } catch (err) {
             console.error(err);
           } finally {
-            State.mergeComponentState(name, { loadingStyles: false });
+            State.mergeComponentState(alias, { loadingStyles: false });
           }
         })();
       }
@@ -69,25 +68,24 @@ export function reassignComponentWillMount(Component) {
  *
  * @param  {ReactComponent} Component - React component to be unstyled
  */
-export function reassignComponentWillUnmount(Component) {
+export function reassignComponentWillUnmount(Component, alias) {
   let { componentWillUnmount: fn } = Component.prototype;
-  // TypeError: Component is NOT a class
+  // Component is NOT a class
   if (fn && typeof fn !== 'function') throw new TypeError(
     'Classy Error: reassignComponentWillUnmount(...)\n' +
     `Expected componentWillUnmount(...) to be a function.\n` +
     `-> Got type ${typeof fn}`
   );
-  let { name } = Component;
-  // Reassign
+  // Update prop descriptor
   Object.defineProperty(Component.prototype, 'componentWillUnmount', {
     writable: true,
     value: function componentWillUnmount(...args) {
-      let state = State.getComponentState(name);
+      let state = State.getComponentState(alias);
       let { isStyled, debug, settings } = state;
       let { hot } = settings;
-      State.decrProp(name, 'numMounted');
-      if (hot || isStyled) {
-        DOM.removeStyle(name).catch(console.error.bind(console));
+      State.decrProp(alias, 'numMounted');
+      if (hot || isStyled && State.getComponentState(alias).numMounted < 1) {
+        DOM.removeStyle(alias).catch(console.error.bind(console));
       }
       if (fn) return fn.call(this, ...args);
     }
@@ -98,11 +96,11 @@ export function reassignComponentWillUnmount(Component) {
  *
  * Gets a component's cssText
  *
- * @param  {String}  name - Component name
- * @return {Promise}      - Promise to fulfill component cssText
+ * @param  {String}  alias - Component alias
+ * @return {Promise}       - Promise to fulfill component cssText
  */
-export async function getComponentCSS(name) {
-  let state = State.getComponentState(name);
+export async function getComponentCSS(alias) {
+  let state = State.getComponentState(alias);
   let { Component, currentTheme, previousTheme, cssText, settings } = state;
   let { styleProp, themeProp, debug } = settings;
   let { hot } = settings;
@@ -125,7 +123,7 @@ export async function getComponentCSS(name) {
   // TypeError: style is NOT a string or Promise
   else throw new TypeError(
     'Classy Error: getComponentCSS(...)\n' +
-    `Expected component ${name}'s styleProp to be a string or Promise ` +
+    `Expected component ${alias}'s styleProp to be a string or Promise ` +
     'that fulfills with a string.\n' +
     `-> Got type '${typeof style}'.`
   );
