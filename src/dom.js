@@ -19,7 +19,8 @@ import * as Class from './class';
  */
 export async function updateStyle(alias) {
   let state = State.getComponentState(alias);
-  let { settings } = state;
+  State.mergeComponentState(alias, { loadingStyles: true });
+  let { Component, settings } = state;
   let { appendTo, elemId, elemProps, debug } = settings;
   let parent = document.querySelector(appendTo);
   // Can't find parent node
@@ -44,8 +45,12 @@ export async function updateStyle(alias) {
   // Update component state
   State.mergeComponentState(alias, {
     isStyled: true,
-    cssText
+    cssText,
+    loadingStyles: false
   });
+  // Re-render component instances
+  State.getComponentInstances(alias)
+    .forEach(c => c.forceUpdate());
   if (debug) console.debug(
     'Classy Debug: updateStyle(...)\n',
     `${alias} cssText:

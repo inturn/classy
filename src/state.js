@@ -47,24 +47,22 @@ export function createComponentState(
     appendTo   = 'head'
   }={}
 ) {
-  let name = alias;
-  if (!name) throw new ReferenceError(
+  if (!alias) throw new ReferenceError(
     'Classy Error: createComponentState(...)\n' +
-    `Component must have a 'name' or component's settings must have an 'alias'.`
+    `Component must be named or component's settings must specify an 'alias'.`
   );
-  let state = getComponentState(name);
+  let state = getComponentState(alias);
   // Already has state
   if (state && !hot) {
     console.warn(
       'Classy Warning: createComponentState(...)\n' +
-      `State has already been created for component ${name}.`
+      `State has already been created for component ${alias}.`
     );
   }
   // Construct initial state
   else {
-    setComponentState(name, {
+    setComponentState(alias, {
       Component,
-      numMounted: 0,
       isStyled: false,
       currentTheme: undefined,
       previousTheme: undefined,
@@ -83,11 +81,11 @@ export function createComponentState(
     });
     if (debug) console.debug(
       'Classy Debug: createComponentState(...)\n',
-      name+'\n',
-      getComponentState(name)
+      alias+'\n',
+      getComponentState(alias)
     );
   }
-  return getComponentState(name);
+  return getComponentState(alias);
 }
 
 /**
@@ -105,10 +103,11 @@ export function nullifyComponentState(alias) {
  * Gets a component's classy state object
  *
  * @param  {String} alias - Component alias
- * @return {Object}       - State object
+ * @return {Object}       - Copy of state object
  */
 export function getComponentState(alias) {
-  return STATE[alias];
+  let state = STATE[alias];
+  return state ? { ...state } : undefined;
 }
 
 /**
@@ -144,10 +143,10 @@ export function mergeComponentState(alias, state) {
  * @param {String} key   - Key of prop to be decremented
  * @param {Number} num   - Amount to decrement
  */
-export function decrProp(name, key, num=1) {
-  let { [key]: val } = getComponentState(name);
+export function decrProp(alias, key, num=1) {
+  let { [key]: val } = getComponentState(alias);
   val -= num;
-  mergeComponentState(name, { [key]: val });
+  mergeComponentState(alias, { [key]: val });
 }
 
 /**
@@ -158,8 +157,70 @@ export function decrProp(name, key, num=1) {
  * @param {String} key   - Key of prop to be incremented
  * @param {Number} num   - Amount to increment
  */
-export function incrProp(name, key, num=1) {
-  let { [key]: val } = getComponentState(name);
+export function incrProp(alias, key, num=1) {
+  let { [key]: val } = getComponentState(alias);
   val += num;
-  mergeComponentState(name, { [key]: val });
+  mergeComponentState(alias, { [key]: val });
+}
+
+/**
+ *
+ * Adds component instance to the list of cached instances
+ *
+ * @param  {String} alias            - Component alias
+ * @param  {ReactComponent} instance - Instance of ReactComponent
+ * @return {Number}                  - Number of cached instances
+ */
+export function cacheComponentInstance(alias, instance) {
+  let cached = false;
+  let instances = getComponentInstances(alias);
+  instances.forEach(c => c === instance ? (cached = true) : null);
+  if (!cached) {
+    instances.push(instance);
+    setComponentInstances(alias, instances);
+  }
+  return getComponentInstances(alias).length;
+}
+
+/**
+ *
+ * Removes component instance from the list of cached instances
+ *
+ * @param  {String} alias            - Component alias
+ * @param  {ReactComponent} instance - Instance of ReactComponent
+ * @return {Number}                  - Number of cached instances
+ */
+export function clearComponentInstance(alias, instance) {
+  let index;
+  let instances = getComponentInstances(alias);
+  instances.forEach((c, i) => c === instance ? (index = i) : null);
+  if (index !== undefined) {
+    instances.splice(index, 1);
+    setComponentInstances(alias, instances);
+  }
+  return getComponentInstances(alias).length;
+}
+
+/**
+ *
+ * Gets the list of cached component instances
+ *
+ * @param  {String} alias - Component alias
+ * @return {Array}        - Component instances
+ */
+export function getComponentInstances(alias) {
+  let { symbol, Component } = getComponentState(alias);
+  return Component[symbol].slice();
+}
+
+/**
+ *
+ * Sets the list of cached component instances
+ *
+ * @param {String} alias     - Component alias
+ * @param {Array}  instances - Component instances
+ */
+export function setComponentInstances(alias, instances) {
+  let { symbol, Component } = getComponentState(alias);
+  STATE[alias].Component[symbol] = instances;
 }

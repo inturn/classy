@@ -53,28 +53,18 @@ export default function Classy(Component, settings) {
     // Create state object
     let state = State.createComponentState(Component, settings);
     let { alias } = state.settings;
-    // Reassign lifecycle methods (mutates Component)
-    Class.reassignLifecycleMethods(Component, alias);
+    // Create a static prop for caching instances
+    let symbol = Symbol(alias);
+    Component[symbol] = [];
     // Update state
     State.mergeComponentState(alias, {
       // component ref
       Component,
-      // loading
-      loadingStyles: true
+      // instances key
+      symbol
     });
-    // Update component styles
-    (async () => {
-      try {
-        await DOM.updateStyle(alias);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        State.mergeComponentState(alias, {
-          // loading complete
-          loadingStyles: false
-        });
-      }
-    })();
+    // Reassign lifecycle methods (mutates Component)
+    Class.redefineLifecycleMethods(Component, alias);
   }
   // Component is not a class nor a settings object
   else throw new TypeError(

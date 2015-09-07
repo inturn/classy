@@ -12,48 +12,90 @@ import * as DOM from './dom';
 
 /**
  *
- * Reassigns component lifecycle methods for auto style un/mounting
+ * Redefines component lifecycle methods for auto style un/mounting
  *
  * @param {*} args - Arugments passed by callee
  */
-export function reassignLifecycleMethods(...args) {
+export function redefineLifecycleMethods(...args) {
   [
-    reassignComponentWillMount,
-    reassignComponentWillUnmount
+    redefineRender,
+    redefineComponentWillMount,
+    redefineComponentWillUnmount
   ].forEach(fn => fn(...args));
 }
 
+
 /**
  *
- * Updates styles before component mounts
+ * If Component styles have loaded,
+ * Component.prototype.render(...) will curry the original method
+ * Otherwise, `null` will be returned to avoid FOUC
  *
- * @param  {ReactComponent} Component - React component to be styled
+ * @param {ReactComponent} Component - React component to be unstyled
+ * @param {String}         alias     - Component alias
  */
-export function reassignComponentWillMount(Component, alias) {
-  let { componentWillMount: fn } = Component.prototype;
+export function redefineRender(Component, alias) {
+  let method = 'render';
+  let { [method]: fn } = Component.prototype;
   // Component is NOT a class
   if (fn && typeof fn !== 'function') throw new TypeError(
-    'Classy Error: reassignComponentWillMount(...)\n' +
+    'Classy Error: redefineRender(...)\n' +
     `Expected componentWillMount(...) to be a function.\n` +
     `-> Got type ${typeof fn}`
   );
   // Update prop descriptor
-  Object.defineProperty(Component.prototype, 'componentWillMount', {
-    writable: true,
-    value: function componentWillMount(...args) {
+  let descriptor = Object.getOwnPropertyDescriptor(Component.prototype, method);
+  Object.defineProperty(Component.prototype, method, {
+    // Merge old descriptor
+    ...descriptor,
+    // With new value
+    value: function render(...args) {
       let state = State.getComponentState(alias);
-      let { loadingStyles, isStyled, debug, settings } = state;
+      let { isStyled } = state;
+      return isStyled
+        ? fn.call(this, ...args)
+        : null;
+    }
+  });
+}
+
+/**
+ *
+ * Caches component instances and attempts to update styles
+ * if component class styles have yet to be loaded
+ *
+ * @param {ReactComponent} Component - React component to be unstyled
+ * @param {String}         alias     - Component alias
+ */
+export function redefineComponentWillMount(Component, alias) {
+  let method = 'componentWillMount';
+  let { [method]: fn } = Component.prototype;
+  // Component is NOT a class
+  if (fn && typeof fn !== 'function') throw new TypeError(
+    'Classy Error: redefineComponentWillMount(...)\n' +
+    `Expected componentWillMount(...) to be a function.\n` +
+    `-> Got type ${typeof fn}`
+  );
+  // Update prop descriptor
+  let descriptor = Object.getOwnPropertyDescriptor(Component.prototype, method);
+  Object.defineProperty(Component.prototype, method, {
+    // Merge old descriptor
+    ...descriptor,
+    // With new value
+    value: function componentWillMount(...args) {
+      // Cache instance
+      let numMounted = State.cacheComponentInstance(alias, this);
+      // Update styles
+      let state = State.getComponentState(alias);
+      let { instances, loadingStyles, isStyled, debug, settings } = state;
       let { hot } = settings;
-      State.incrProp(alias, 'numMounted');
-      if (hot || !isStyled && !loadingStyles) {
-        State.mergeComponentState(alias, { loadingStyles: true });
+      if (!isStyled && !loadingStyles) {
+        // Update styles
         (async () => {
           try {
             let res = await DOM.updateStyle(alias);
           } catch (err) {
             console.error(err);
-          } finally {
-            State.mergeComponentState(alias, { loadingStyles: false });
           }
         })();
       }
@@ -64,28 +106,43 @@ export function reassignComponentWillMount(Component, alias) {
 
 /**
  *
- * Removes styles before component unmounts
+ * Removes cached component instance and, if no other instances are mounted,
+ * removes component class styles as well
  *
- * @param  {ReactComponent} Component - React component to be unstyled
+ * @param {ReactComponent} Component - React component to be unstyled
+ * @param {String}         alias     - Component alias
  */
-export function reassignComponentWillUnmount(Component, alias) {
-  let { componentWillUnmount: fn } = Component.prototype;
+export function redefineComponentWillUnmount(Component, alias) {
+  let method = 'componentWillUnmount';
+  let { [method]: fn } = Component.prototype;
   // Component is NOT a class
   if (fn && typeof fn !== 'function') throw new TypeError(
-    'Classy Error: reassignComponentWillUnmount(...)\n' +
+    'Classy Error: redefineComponentWillUnmount(...)\n' +
     `Expected componentWillUnmount(...) to be a function.\n` +
     `-> Got type ${typeof fn}`
   );
   // Update prop descriptor
-  Object.defineProperty(Component.prototype, 'componentWillUnmount', {
-    writable: true,
+  let descriptor = Object.getOwnPropertyDescriptor(Component.prototype, method);
+  Object.defineProperty(Component.prototype, method, {
+    // Merge old descriptor
+    ...descriptor,
+    // With new value
     value: function componentWillUnmount(...args) {
+      // Clear instance from cache
+      let numMounted = State.clearComponentInstance(alias, this);
+      // Remove styles
       let state = State.getComponentState(alias);
       let { isStyled, debug, settings } = state;
       let { hot } = settings;
-      State.decrProp(alias, 'numMounted');
-      if (hot || isStyled && State.getComponentState(alias).numMounted < 1) {
-        DOM.removeStyle(alias).catch(console.error.bind(console));
+      if (isStyled && numMounted < 1) {
+        // Remove styles
+        (async () => {
+          try {
+            await DOM.removeStyle(alias);
+          } catch(err) {
+            console.error(err);
+          }
+        })();
       }
       if (fn) return fn.call(this, ...args);
     }
