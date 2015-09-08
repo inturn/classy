@@ -33,7 +33,7 @@ const INTERNAL_STATE_DEFAULTS = {
   previousTheme: undefined,
   loadingStyles: false,
   cssText: undefined
-}
+};
 
 /**
  *
@@ -247,8 +247,9 @@ export function setComponentInstances(alias, instances) {
  *
  */
 export function resetAllInternalStates() {
+  let hasProp = STATE::{}.hasOwnProperty;
   for (let alias in STATE) {
-    resetInternalState(alias);
+    if (hasProp(alias)) resetInternalState(alias);
   }
 }
 
