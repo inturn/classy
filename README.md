@@ -313,7 +313,7 @@ Key under which to identifies your component. (See [decorator options](#options)
 
 Return: `Promise`
 
-Creates a component's <style> tag and/or updates its cssText.
+Creates a component's `<style>` tag and/or updates its cssText.
 
 ##### alias
 
@@ -325,7 +325,7 @@ Key under which to identifies your component. (See [decorator options](#options)
 
 Return: `Promise`
 
-Removes a component's <style> tag.
+Removes a component's `<style>` tag.
 
 ##### alias
 
