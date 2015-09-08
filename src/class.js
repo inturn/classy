@@ -7,6 +7,7 @@
  *   Helpers for modifying and getting values from Classy ReactComponents
  */
 
+import React from 'react';
 import * as State from './state';
 import * as DOM from './dom';
 
@@ -53,8 +54,8 @@ export function redefineRender(Component, alias) {
       let state = State.getComponentState(alias);
       let { isStyled } = state;
       return isStyled
-        ? fn.call(this, ...args)
-        : null;
+        ? <span>{fn.call(this, ...args)}</span>
+        : <span style={{ display: 'none' }}>{fn.call(this, ...args)}</span>;
     }
   });
 }
@@ -88,17 +89,15 @@ export function redefineComponentWillMount(Component, alias) {
       // Update styles
       let state = State.getComponentState(alias);
       let { instances, loadingStyles, isStyled, debug, settings } = state;
-      let { hot } = settings;
-      if (!isStyled && !loadingStyles) {
-        // Update styles
-        (async () => {
-          try {
-            let res = await DOM.updateStyle(alias);
-          } catch (err) {
-            console.error(err);
-          }
-        })();
-      }
+      // Update styles
+      if (!isStyled && !loadingStyles) (async () => {
+        try {
+          await DOM.updateStyle(alias);
+        } catch (err) {
+          console.warn(err);
+        }
+      })();
+      // Call original method
       if (fn) return fn.call(this, ...args);
     }
   });
@@ -134,16 +133,15 @@ export function redefineComponentWillUnmount(Component, alias) {
       let state = State.getComponentState(alias);
       let { isStyled, debug, settings } = state;
       let { hot } = settings;
-      if (isStyled && numMounted < 1) {
-        // Remove styles
-        (async () => {
-          try {
-            await DOM.removeStyle(alias);
-          } catch(err) {
-            console.error(err);
-          }
-        })();
-      }
+      // Remove styles
+      if (isStyled && numMounted < 1) (async () => {
+        try {
+          await DOM.removeStyle(alias);
+        } catch (err) {
+          console.warn(err);
+        }
+      })();
+      // Call original method
       if (fn) return fn.call(this, ...args);
     }
   });

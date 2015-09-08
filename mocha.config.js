@@ -17,3 +17,6 @@ for (var key in window) {
   if (key in global) continue;
   global[key] = window[key];
 }
+
+const React = global.React = require('react/addons');
+const TestUtils = global.TestUtils = React.addons.TestUtils;

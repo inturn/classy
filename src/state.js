@@ -12,9 +12,28 @@ import * as Utils from './utils';
 /**
  *
  * Tracks the states of all Classy components
+ * @type {Object}
  *
  */
 const STATE = {};
+
+/**
+ *
+ * The internal state prop defaults --
+ * These are props that should only be manipulated
+ * internally or through the use of `Utils` module methods.
+ * Other state props (Component, subscriptions, and settings)
+ * are not considered 'internal'.
+ * @type {Object}
+ *
+ */
+const INTERNAL_STATE_DEFAULTS = {
+  isStyled: false,
+  currentTheme: undefined,
+  previousTheme: undefined,
+  loadingStyles: false,
+  cssText: undefined
+}
 
 /**
  *
@@ -22,7 +41,7 @@ const STATE = {};
  *
  * @param  {ReactComponent} Component                          - A ReactComponent
  * @param  {Object}         settings                           - Settings object with the following options:
- * @param  {Boolean}        debug=false                        - Print rendered style to debug console
+ * @param  {Boolean}        debug=false                        - Logs rendered cssText to debug console whens component styles are updated
  * @param  {Boolean}        hot=false                          - Applies two effects:
  *                                                               - Replace Component ref in state object when redecorated
  *                                                               - Always update styles when mounting an instance
@@ -63,11 +82,6 @@ export function createComponentState(
   else {
     setComponentState(alias, {
       Component,
-      isStyled: false,
-      currentTheme: undefined,
-      previousTheme: undefined,
-      loadingStyles: false,
-      cssText: undefined,
       settings: {
         debug,
         hot,
@@ -77,7 +91,9 @@ export function createComponentState(
         elemId,
         elemProps,
         appendTo
-      }
+      },
+      subscriptions: {},
+      ...INTERNAL_STATE_DEFAULTS
     });
     if (debug) console.debug(
       'Classy Debug: createComponentState(...)\n',
@@ -223,4 +239,25 @@ export function getComponentInstances(alias) {
 export function setComponentInstances(alias, instances) {
   let { symbol, Component } = getComponentState(alias);
   STATE[alias].Component[symbol] = instances;
+}
+
+/**
+ *
+ * Resets the internal state props for all components
+ *
+ */
+export function resetAllInternalStates() {
+  for (let alias in STATE) {
+    resetInternalState(alias);
+  }
+}
+
+/**
+ *
+ * Reset a component's internal state props
+ *
+ * @param {String} alias - Component alias
+ */
+export function resetInternalState(alias) {
+  mergeComponentState(alias, INTERNAL_STATE_DEFAULTS);
 }

@@ -50,10 +50,6 @@ and advanced usage in the next section.
 Usage
 -----
 
-Let's say have a file called `MyButton.js` in which we plan to create a button
-React component. The following examples illustrate how you might use Classy to
-encapsulate your component's styles as part of an ES7 class definition.
-
 ### Basic
 
 ```js
@@ -63,38 +59,20 @@ import Classy from 'react-classy';
 
 // Decorate your component
 @Classy
-export default class MyButton extends Component {
-
-  render() {
-    return <button {...this.props} />;
-  }
-
-  static defaultProps = {
-    className: 'my-button my-button--default',
-    children: 'Push Me'
-  }
-
-  // Assign some stringified CSS to a static `style` prop
+export default class Button extends Component {
+  // Add a static `style` prop
   static style = `
-    .my-button--default {
-      color: white;
-      background: #4b79cf;
-      border-radius: 4px;
-      border: 0;
-      outline: none;
-      padding: 20px;
-      font-size: 18px;
-      font-family: 'Helvetica Neue', helvetica, sans-serif;
-      transition: transform .3s ease;
-    }
-    .my-button--default:hover {
-      cursor: pointer;
-    }
-    .my-button--default:focus {
-      transform: translateY(4px);
+    .button {
+      background: blue;
     }
   `
-
+  render() {
+    return (
+      <button className="button">
+        {this.props.children}
+      </button>
+    );
+  }
 }
 
 ```
@@ -109,17 +87,22 @@ switches themes when clicked.
 ```js
 import React, { Component } from 'react';
 // Import the decorator and utils modules
-import { Classy, Utils } from 'react-classy';
+import Classy, { Utils } from 'react-classy';
 // CSS pre-processor
 import stylus from 'stylus';
 
-// We can pass an optional settings object
 @Classy({
+
+  // Makes Classy play nice with react-hot-loader :)
+  hot: true,
+
   // Logs component css to console
   debug: true,
-  // Will get style value from specified prop
+
+  // Will access specified prop to load component styles
   // instead of default `style` prop
   styleProp: 'stylus'
+
 })
 export default class ToggleButton extends Component {
 
@@ -163,20 +146,26 @@ export default class ToggleButton extends Component {
   // Our default theme is set via rest param.
   static stylus(theme=ToggleButton.theme.light) {
     let styl = `
-    .toggle-button--default
-      color: convert($theme.textColor)
-      background: convert($theme.background)
-      border: 1px solid convert($theme.textColor)
-      border-radius: convert($theme.borderRadius)
-      outline: none
-      padding: 20px
-      font-size: 18px
-      font-family: 'Helvetica Neue', helvetica, sans-serif
-      transition: transform .3s ease
-      &:hover
-        cursor: pointer
-      &:focus
-        transform: translateY(4px)
+
+    .toggle-button
+
+      &--default
+        color: convert($theme.textColor)
+        background: convert($theme.background)
+        border: 1px solid convert($theme.textColor)
+        border-radius: convert($theme.borderRadius)
+        outline: none
+        padding: 20px
+        font-size: 18px
+        font-family: 'Helvetica Neue', helvetica, sans-serif
+        transition: transform .3s ease
+
+        &:hover
+          cursor: pointer
+
+        &:focus
+          transform: translateY(4px)
+
     `;
     // Finally, let's use our Stylus middleware to render actual CSS
     // and return it with a Promise
@@ -200,7 +189,7 @@ API
 
 #### @Classy([options])
 
-A class decorator will automatically inject styles into the DOM when your `ReactComponent` instance mounts.
+A class decorator will automatically inject styles into the DOM before your `ReactComponent` instance mounts.
 
 ##### options
 
@@ -217,7 +206,18 @@ Type: `Boolean`
 
 Default: `false`
 
-[description]
+Logs rendered cssText to debug console whens component styles are updated
+
+##### options.hot
+
+Type: `Boolean`
+
+Default: `false`
+
+Applies two effects:
+
+* Replaces internal ref to the component if it gets hot-loaded
+* Component never uses cached cssText
 
 ##### options.styleProp
 
@@ -225,7 +225,7 @@ Type: `String`
 
 Default: `style`
 
-[description]
+Component prop to access for getting styles
 
 ##### options.themeProp
 
@@ -233,33 +233,34 @@ Type: `String`
 
 Default: `themes`
 
-[description]
+Component prop to access for getting themes
 
 ##### options.alias
 
 Type: `String`
 
-Default: `<ReactComponent>.name_<hash>`
+Default: `<ReactComponent>.name`
 
-Example: `MyButton_fxhhf`
-
-[description]
+Key under which to identifies your component.
+If not specified, your ReactComponent's `constructor.name` will be used.
 
 ##### options.elemId
 
 Type: `String`
 
-Default: `alias`
+Default: `alias + '_' + Utils.genHash()`
 
-[description]
+Example: `MyButton_fxhhf`
+
+ID prop for component <style> tag. Uses `options.alias` plus a 5 character hash (separated by an underscore) to prevent unintentional id attribute collisions.
 
 ##### options.elemProps
 
 Type: `String`
 
-Default: `text/css`
+Default: `{ type: 'text/css' }`
 
-[description]
+Other props to apply to component <style> tag
 
 ##### options.appendTo
 
@@ -267,58 +268,79 @@ Type: `String`
 
 Default: `head`
 
-[description]
+Element to append component <style> tag to
 
 ### Utils
 
-#### Utils.setTheme(name [, theme])
+#### Utils.setTheme(alias [, theme, force=false])
 
-##### name
+Updates component styles with specified theme object
+
+##### alias
 
 Type: `String`
 
-[description]
+Key under which to identifies your component. (See [decorator options](#options))
 
 ##### theme
 
 Type: `String`
 
-[description]
+Component theme to use
 
-#### Utils.updateStyle(name)
+##### force
 
-##### name
+Type: `Boolean`
 
-Type: `String`
+Default: `false`
 
-[description]
+Re-render theme if already applied
 
-#### Utils.removeStyle(name)
+#### Utils.getTheme(alias)
 
-##### name
+return: `Object`
 
-Type: `String`
+Gets the current theme applied to a component
+(Convenience method for `State.getComponentState(...).currentTheme`).
 
-[description]
-
-#### Utils.getComponentState(name)
-
-##### name
+##### alias
 
 Type: `String`
 
-[description]
+Key under which to identifies your component. (See [decorator options](#options))
 
-#### Utils.createComponentState(Component [, options])
+#### Utils.updateStyle(alias)
 
-##### Component
+Return: `Promise`
 
-Type: `ReactComponent`
+Creates a component's <style> tag and/or updates its cssText.
 
-[description]
+##### alias
 
-##### options
+Type: `String`
 
-Type: `Object`
+Key under which to identifies your component. (See [decorator options](#options))
 
-Same options as the [@Classy decorator options](#options)
+#### Utils.removeStyle(alias)
+
+Return: `Promise`
+
+Removes a component's <style> tag.
+
+##### alias
+
+Type: `String`
+
+Key under which to identifies your component. (See [decorator options](#options))
+
+#### Utils.getComponentState(alias)
+
+return: `Object`
+
+Gets a component's Classy state object.
+
+##### alias
+
+Type: `String`
+
+Key under which to identifies your component. (See [decorator options](#options))

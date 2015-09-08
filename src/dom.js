@@ -9,6 +9,7 @@
 
 import * as State from './state';
 import * as Class from './class';
+import Utils from './utils';
 
 /**
  *
@@ -49,8 +50,12 @@ export async function updateStyle(alias) {
     loadingStyles: false
   });
   // Re-render component instances
-  State.getComponentInstances(alias)
-    .forEach(c => c.forceUpdate());
+  State.getComponentInstances(alias).forEach(
+    c => c.forceUpdate()
+  );
+  // Handle subscriptions
+  Utils.publish(alias, 'updateStyle');
+  // Debug
   if (debug) console.debug(
     'Classy Debug: updateStyle(...)\n',
     `${alias} cssText:
@@ -82,6 +87,9 @@ export async function removeStyle(alias) {
     isStyled: false,
     cssText: undefined
   });
+  // Handle subscriptions
+  Utils.publish(alias, 'removeStyle');
+  // Debug
   if (debug) console.debug(
     'Classy Debug: removeStyle(...)\n',
     `${alias} styles were removed`
