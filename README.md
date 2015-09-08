@@ -178,7 +178,7 @@ export default class ToggleButton extends Component {
 }
 ```
 
-[Decorator](#decorator) options and [util](#utils) methods are comprehensively documented in the next
+[Decorator](#decorator) options and [utility](#utils) methods are comprehensively documented in the next
 section.
 
 
