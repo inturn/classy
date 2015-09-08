@@ -191,6 +191,22 @@ API
 
 A class decorator will automatically inject styles into the DOM before your `ReactComponent` instance mounts.
 
+Example usage:
+
+```js
+// ES2016
+@Classy
+export default class MyComponent extends React.Component { ... }
+
+// ES2015
+class MyComponent extends React.Component { ... }
+export default Classy(MyComponent);
+
+// ES5
+var MyComponent = React.createClass({ ... });
+module.exports = Classy(MyComponent);
+```
+
 ##### options
 
 Type: `Object`
