@@ -300,7 +300,7 @@ Re-render theme if already applied
 
 #### #getTheme(alias)
 
-return: `Object`
+Return: `Object`
 
 Gets the current theme applied to a component
 (Convenience method for `State.getComponentState(...).currentTheme`).
@@ -337,7 +337,7 @@ Key under which Classy identifies your component. (See [decorator options](#opti
 
 #### #getComponentState(alias)
 
-return: `Object`
+Return: `Object`
 
 Gets a component's Classy state object.
 
