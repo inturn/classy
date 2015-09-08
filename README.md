@@ -60,7 +60,7 @@ import Classy from 'react-classy';
 // Decorate your component
 @Classy
 export default class Button extends Component {
-  // Add a static `style` prop
+  // Add your CSS styles
   static style = `
     .button {
       background: blue;
@@ -269,6 +269,8 @@ Type: `String`
 Default: `head`
 
 Element to append component `<style>` tag to
+
+<hr />
 
 ### Utils
 
