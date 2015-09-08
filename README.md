@@ -191,7 +191,7 @@ API
 
 A class decorator will automatically inject styles into the DOM before your `ReactComponent` instance mounts.
 
-Example usage:
+Example:
 
 ```js
 // ES2016
