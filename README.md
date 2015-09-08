@@ -280,7 +280,7 @@ Updates component styles with specified theme object
 
 Type: `String`
 
-Key under which to identifies your component. (See [decorator options](#options))
+Key under which to identifies your component. (See [decorator options](#optionsalias))
 
 ##### theme
 
@@ -307,7 +307,7 @@ Gets the current theme applied to a component
 
 Type: `String`
 
-Key under which to identifies your component. (See [decorator options](#options))
+Key under which to identifies your component. (See [decorator options](#optionsalias))
 
 #### Utils.updateStyle(alias)
 
@@ -319,7 +319,7 @@ Creates a component's `<style>` tag and/or updates its cssText.
 
 Type: `String`
 
-Key under which to identifies your component. (See [decorator options](#options))
+Key under which to identifies your component. (See [decorator options](#optionsalias))
 
 #### Utils.removeStyle(alias)
 
@@ -331,7 +331,7 @@ Removes a component's `<style>` tag.
 
 Type: `String`
 
-Key under which to identifies your component. (See [decorator options](#options))
+Key under which to identifies your component. (See [decorator options](#optionsalias))
 
 #### Utils.getComponentState(alias)
 
@@ -343,4 +343,4 @@ Gets a component's Classy state object.
 
 Type: `String`
 
-Key under which to identifies your component. (See [decorator options](#options))
+Key under which to identifies your component. (See [decorator options](#optionsalias))
