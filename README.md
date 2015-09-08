@@ -274,7 +274,7 @@ Element to append component `<style>` tag to
 
 ### Utils
 
-#### Utils.setTheme(alias [, theme, force=false])
+#### #setTheme(alias [, theme, force=false])
 
 Updates component styles with specified theme object
 
@@ -298,7 +298,7 @@ Default: `false`
 
 Re-render theme if already applied
 
-#### Utils.getTheme(alias)
+#### #getTheme(alias)
 
 return: `Object`
 
@@ -311,7 +311,7 @@ Type: `String`
 
 Key under which Classy identifies your component. (See [decorator options](#optionsalias))
 
-#### Utils.updateStyle(alias)
+#### #updateStyle(alias)
 
 Return: `Promise`
 
@@ -323,7 +323,7 @@ Type: `String`
 
 Key under which Classy identifies your component. (See [decorator options](#optionsalias))
 
-#### Utils.removeStyle(alias)
+#### #removeStyle(alias)
 
 Return: `Promise`
 
@@ -335,7 +335,7 @@ Type: `String`
 
 Key under which Classy identifies your component. (See [decorator options](#optionsalias))
 
-#### Utils.getComponentState(alias)
+#### #getComponentState(alias)
 
 return: `Object`
 
