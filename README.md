@@ -252,7 +252,7 @@ Default: `alias + '_' + Utils.genHash()`
 
 Example: `MyButton_fxhhf`
 
-ID prop for component <style> tag. Uses `options.alias` plus a 5 character hash (separated by an underscore) to prevent unintentional id attribute collisions.
+ID prop for component `<style>` tag. Uses `options.alias` plus a 5 character hash (separated by an underscore) to prevent unintentional id attribute collisions.
 
 ##### options.elemProps
 
@@ -260,7 +260,7 @@ Type: `String`
 
 Default: `{ type: 'text/css' }`
 
-Other props to apply to component <style> tag
+Other props to apply to component `<style>` tag
 
 ##### options.appendTo
 
@@ -268,7 +268,7 @@ Type: `String`
 
 Default: `head`
 
-Element to append component <style> tag to
+Element to append component `<style>` tag to
 
 ### Utils
 
