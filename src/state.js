@@ -60,7 +60,7 @@ export function createComponentState(
     hot        = false,
     styleProp  = 'style',
     themeProp  = 'theme',
-    alias      = Component.name,
+    alias      = Component.prototype.displayName || Component.name,
     elemId     = `${alias}_${Utils.genHash()}`,
     elemProps  = { type: 'text/css' },
     appendTo   = 'head'
