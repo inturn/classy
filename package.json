@@ -46,7 +46,6 @@
   },
   "dependencies": {
     "babel": "5.8.21",
-    "rimraf": "2.4.2",
     "react": "0.13.3"
   },
   "devDependencies": {
@@ -58,6 +57,8 @@
     "istanbul": "0.3.18",
     "jsdom": "6.1.0",
     "mocha": "2.2.5",
-    "pre-commit": "1.1.1"
+    "pre-commit": "1.1.1",
+    "rimraf": "2.4.2",
+    "uglifyjs": "^2.4.10"
   }
 }
