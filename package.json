@@ -1,6 +1,6 @@
 {
   "name": "react-classy",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "A composable, extensible, and simple solution for styling React components.",
   "author": "InTurn <ops@inturn.co> (https://github.com/inturn)",
   "license": "MIT",
@@ -47,7 +47,8 @@
   },
   "dependencies": {
     "babel": "5.8.21",
-    "react": "0.13.3"
+    "react": "0.13.3",
+    "rimraf": "2.4.2"
   },
   "devDependencies": {
     "babel-eslint": "4.0.10",
@@ -59,7 +60,6 @@
     "jsdom": "6.1.0",
     "mocha": "2.2.5",
     "pre-commit": "1.1.1",
-    "rimraf": "2.4.2",
     "uglifyjs": "2.4.10"
   }
 }
