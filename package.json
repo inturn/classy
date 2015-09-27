@@ -1,6 +1,6 @@
 {
   "name": "react-classy",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "A composable, extensible, and simple solution for styling React components.",
   "author": "InTurn <ops@inturn.co> (https://github.com/inturn)",
   "license": "MIT",
@@ -14,7 +14,7 @@
     "postinstall": "npm run -s babel:src",
     "test": "npm run min:components && npm run -s mocha -- --reporter nyan --require mocha.config test/*.spec.js",
     "min:components": "npm run rimraf -- ./test/components.min.js && babel ./test/components.js --stage 0 --optional runtime  | npm run uglifyjs -- --compress --mangle  --keep-fnames -o ./test/components.min.js",
-    "babel:src": "npm run -s rimraf -- lib && babel src --out-dir lib --stage 0 --optional runtime",
+    "babel:src": "npm run -s rimraf -- lib && npm run -s babel -- src --out-dir lib --stage 0 --optional runtime",
     "lint": "npm run -s eslint -s -- src && cat winning.txt",
     "coverage": "npm run -s istanbul -- cover node_modules/.bin/_mocha -- --reporter nyan --require mocha.config test/*.spec.js",
     "eslint": "node_modules/.bin/eslint",
