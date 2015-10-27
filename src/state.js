@@ -226,7 +226,7 @@ export function clearComponentInstance(alias, instance) {
  */
 export function getComponentInstances(alias) {
   let { symbol, Component } = getComponentState(alias);
-  return Component[symbol].slice();
+  return Component[symbol] ? Component[symbol].slice() : [];
 }
 
 /**
