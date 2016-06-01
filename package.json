@@ -7,13 +7,14 @@
   "homepage": "http://inturn.github.io/classy/",
   "main": "lib/index.js",
   "engines": {
-    "iojs": "3.3.0",
-    "npm": "2.14"
+    "node": "*",
+    "npm": ">=2.0.0"
   },
   "scripts": {
     "build": "npm run -s build:src",
     "test": "npm run -s build:components.min && npm run -s mocha -- --reporter nyan --require mocha.config test/*.spec.js",
     "build:components.min": "npm run -s rimraf -- ./test/components.min.js && babel test/components.js | npm run -s minify -- -o ./test/components.min.js",
+    "babel:src": "npm run -s rimraf -- lib && npm run -s babel -- src -d lib",
     "lint": "npm run -s eslint -s -- src && cat winning.txt",
     "coverage": "npm run -s istanbul -- cover node_modules/.bin/_mocha -- --reporter nyan --require mocha.config test/*.spec.js",
     "minify": "npm run -s uglifyjs -- --compress --mangle  --keep-fnames",
