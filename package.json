@@ -1,6 +1,6 @@
 {
   "name": "react-classy",
-  "version": "0.4.7",
+  "version": "0.4.8",
   "description": "A composable, extensible, and simple solution for styling React components.",
   "author": "InTurn <ops@inturn.co> (https://github.com/inturn)",
   "license": "MIT",
@@ -11,12 +11,12 @@
     "npm": "2.14"
   },
   "scripts": {
-    "build": "npm run -s babel:src",
-    "test": "npm run min:components && npm run -s mocha -- --reporter nyan --require mocha.config test/*.spec.js",
-    "min:components": "npm run rimraf -- ./test/components.min.js && babel ./test/components.js --stage 0 --optional runtime  | npm run uglifyjs -- --compress --mangle  --keep-fnames -o ./test/components.min.js",
-    "babel:src": "npm run -s rimraf -- lib && npm run -s babel -- src --out-dir lib --stage 0 --optional runtime",
+    "build": "npm run -s build:src",
+    "test": "npm run -s build:components.min && npm run -s mocha -- --reporter nyan --require mocha.config test/*.spec.js",
+    "build:components.min": "npm run -s rimraf -- ./test/components.min.js && babel test/components.js | npm run -s minify -- -o ./test/components.min.js",
     "lint": "npm run -s eslint -s -- src && cat winning.txt",
     "coverage": "npm run -s istanbul -- cover node_modules/.bin/_mocha -- --reporter nyan --require mocha.config test/*.spec.js",
+    "minify": "npm run -s uglifyjs -- --compress --mangle  --keep-fnames",
     "babel": "node_modules/.bin/babel",
     "eslint": "node_modules/.bin/eslint",
     "istanbul": "node_modules/.bin/istanbul",
@@ -46,16 +46,23 @@
     "url": "https://github.com/inturn/classy/issues"
   },
   "dependencies": {
-    "babel": "5.8.21",
-    "babel-eslint": "^5.0.4",
+    "babel-runtime": "6.9.2",
+    "classnames": "2.1.3",
     "react": "0.13.3",
     "rimraf": "2.4.2"
   },
   "devDependencies": {
-    "babel-eslint": "4.0.10",
-    "babel-runtime": "5.8.20",
+    "babel-cli": "6.9.0",
+    "babel-core": "6.9.1",
+    "babel-eslint": "6.0.4",
+    "babel-plugin-transform-class-properties": "6.9.1",
+    "babel-plugin-transform-decorators-legacy": "1.3.4",
+    "babel-plugin-transform-runtime": "6.9.0",
+    "babel-preset-es2015": "6.9.0",
+    "babel-preset-react": "6.5.0",
+    "babel-preset-stage-0": "6.5.0",
+    "babel-register": "6.9.0",
     "chai": "3.2.0",
-    "classnames": "2.1.3",
     "eslint": "1.10.3",
     "istanbul": "0.3.18",
     "jsdom": "6.1.0",

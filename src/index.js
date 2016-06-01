@@ -9,4 +9,4 @@
 
 export { default } from './decorator';
 export { default as Classy } from './decorator';
-export { default as Utils } from './utils';
+export * as Utils from './utils';

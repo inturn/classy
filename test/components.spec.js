@@ -1,7 +1,7 @@
 'use strict';
 
 import { expect } from 'chai';
-import { Utils } from '../src';
+import * as Utils from '../src/utils';
 import {
   Button,
   ToggleButton,

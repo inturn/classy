@@ -1,9 +1,6 @@
 'use strict';
 
-// Babel compiler
-require('babel/register')({
-  stage: 0
-});
+require('babel-core/register');
 
 // Create JSDOM and `document`/`window` globals
 var document = global.document = require('jsdom').jsdom(

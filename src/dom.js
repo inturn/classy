@@ -9,7 +9,7 @@
 
 import * as State from './state';
 import * as Class from './class';
-import Utils from './utils';
+import * as Utils from './utils';
 
 /**
  *
