@@ -1,6 +1,6 @@
 {
   "name": "react-classy",
-  "version": "0.4.8",
+  "version": "0.4.9",
   "description": "A composable, extensible, and simple solution for styling React components.",
   "author": "InTurn <ops@inturn.co> (https://github.com/inturn)",
   "license": "MIT",
