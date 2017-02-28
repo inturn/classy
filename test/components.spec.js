@@ -1,6 +1,7 @@
 'use strict';
 
 import { expect } from 'chai';
+import reactDOM from 'react-dom';
 import * as Utils from '../src/utils';
 import {
   Button,
@@ -8,7 +9,7 @@ import {
   App
 } from './components.min'; // test with minified script
 const render = ::TestUtils.renderIntoDocument;
-const find = ::React.findDOMNode;
+const find = ::reactDOM.findDOMNode;
 const sub = ::Utils.subscribe;
 const unsub = ::Utils.unsubscribe;
 const reset = ::Utils.resetAllInternalStates;
