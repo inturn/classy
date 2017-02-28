@@ -67,6 +67,7 @@
     "mocha": "2.2.5",
     "pre-commit": "1.1.1",
     "react": "15.1.0",
+    "react-addons-test-utils": "15.1.0",
     "rimraf": "2.4.2",
     "uglifyjs": "2.4.10"
   }
